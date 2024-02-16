@@ -9,7 +9,7 @@ type ProductListItemProps = ProductItem;
 export function ProductListItem({ coverImage, name, category, price, id }: ProductListItemProps) {
   return (
     <li className="w-80">
-      <Link href={`/products/${id}`}>
+      <Link href={`/product/${id}`}>
         <article className="card bg-base-100 shadow-xl">
           <ProductListItemCoverImage {...coverImage} />
           <ProductListItemDescription name={name} category={category} price={price} />

@@ -1,9 +1,10 @@
 import "server-only";
 
 import { type Route } from "next";
-import Link from "next/link";
-
 import clsx from "clsx";
+
+import { ActiveLink } from "@/ui/atoms/ActiveLink";
+import { range } from "@/helpers/range";
 
 type PaginationProps = {
   total: number;
@@ -15,10 +16,6 @@ type PaginationProps = {
 const SIBLINGS = 1;
 const BOUNDARIES = 1;
 const COUNT = 10;
-
-function range(start: number, end: number) {
-  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
-}
 
 const DOTS = "...";
 export function generatePages(count: number, total: number, currentPage: number): (string | number)[] {
@@ -64,13 +61,9 @@ export function Pagination({ total, perPage, currentPage, generateHref }: Pagina
         }
 
         return (
-          <Link
-            key={page}
-            className={clsx(baseClassName, { "btn-active": page === currentPage })}
-            href={generateHref(page)}
-          >
+          <ActiveLink key={page} className={baseClassName} activeClassName="btn-active" exact href={generateHref(page)}>
             {page}
-          </Link>
+          </ActiveLink>
         );
       })}
     </nav>
