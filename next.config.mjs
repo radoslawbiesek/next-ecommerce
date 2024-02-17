@@ -1,3 +1,5 @@
+import withMdxRs from "@next/mdx";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   logging: {
@@ -7,7 +9,8 @@ const nextConfig = {
   },
   experimental: {
     typedRoutes: true,
+    mdxRs: true,
   },
 };
 
-export default nextConfig;
+export default withMdxRs()(nextConfig);
