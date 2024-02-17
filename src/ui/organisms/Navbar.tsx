@@ -11,7 +11,7 @@ const LINKS = [
 
 export function Navbar() {
   return (
-    <div className="navbar bg-neutral text-neutral-content">
+    <nav className="navbar bg-neutral text-neutral-content">
       <div className="navbar-start">
         <Link href="/" className="btn btn-ghost text-xl">
           Shop
@@ -28,6 +28,6 @@ export function Navbar() {
           ))}
         </ul>
       </div>
-    </div>
+    </nav>
   );
 }

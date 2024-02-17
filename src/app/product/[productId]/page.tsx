@@ -2,7 +2,7 @@ import { type Metadata } from "next";
 
 import * as productsService from "@/services/products";
 import { ProductListItemCoverImage } from "@/ui/atoms/ProductListItemCoverImage";
-import { ProductListItemDescription } from "@/ui/atoms/ProductListItemDescription";
+import { formatPrice } from "@/helpers/formatPrice";
 
 type ProductPageProps = {
   params: { productId: string };
@@ -33,7 +33,12 @@ export default async function Product({ params }: ProductPageProps) {
     <section className="h-full">
       <article className="card bg-base-100 shadow-xl">
         <ProductListItemCoverImage {...product.coverImage} />
-        <ProductListItemDescription {...product} />
+        <div className="flex-column card-body items-end">
+          <h1 className="card-title">{product.name}</h1>
+          <p>{formatPrice(product.price / 100)}</p>
+          <p className="badge badge-outline">{product.category}</p>
+          <p>{product.description}</p>
+        </div>
       </article>
     </section>
   );

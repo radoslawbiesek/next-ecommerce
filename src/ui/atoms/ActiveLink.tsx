@@ -26,7 +26,11 @@ export function ActiveLink({ href, children, className, activeClassName, exact =
   const isActive = checkIsActive(pathname, href, exact);
 
   return (
-    <Link href={href} className={clsx(className, { [activeClassName]: isActive })} aria-current={isActive}>
+    <Link
+      href={href}
+      className={clsx(className, { [activeClassName]: isActive })}
+      {...(isActive ? { "aria-current": true } : {})}
+    >
       {children}
     </Link>
   );

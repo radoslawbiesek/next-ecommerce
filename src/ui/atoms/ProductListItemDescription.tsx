@@ -1,5 +1,5 @@
 import { type ProductItem } from "@/ui/types";
-import { formatPrice } from "@/utils";
+import { formatPrice } from "@/helpers/formatPrice";
 
 type ProductListItemDescriptionProps = Pick<ProductItem, "name" | "category" | "price">;
 

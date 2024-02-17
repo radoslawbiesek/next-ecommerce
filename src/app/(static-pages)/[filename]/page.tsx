@@ -8,7 +8,7 @@ export default async function StaticPage({ params }: { params: { filename: strin
   );
 
   return (
-    <article className="prose prose-lg mx-auto text-center p-8">
+    <article className="prose prose-lg mx-auto p-8 text-center">
       <Content />
     </article>
   );
