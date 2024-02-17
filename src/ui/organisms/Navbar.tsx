@@ -5,8 +5,8 @@ import Link from "next/link";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 
 const LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Products", href: "/products" },
+  { label: "Home", href: "/", exact: true },
+  { label: "All", href: "/products", exact: false },
 ] as const;
 
 export function Navbar() {
@@ -21,7 +21,7 @@ export function Navbar() {
         <ul className="menu menu-horizontal px-1">
           {LINKS.map((link) => (
             <li key={link.href}>
-              <ActiveLink href={link.href} activeClassName="underline">
+              <ActiveLink href={link.href} activeClassName="underline" exact={link.exact}>
                 {link.label}
               </ActiveLink>
             </li>

@@ -11,7 +11,7 @@ function checkIsActive(pathname: string, href: string, exact: boolean) {
     return pathname === href;
   }
 
-  return pathname.split("/")[1] === href.split("/")[1];
+  return pathname.startsWith(href);
 }
 
 type ActiveLinkProps = {
