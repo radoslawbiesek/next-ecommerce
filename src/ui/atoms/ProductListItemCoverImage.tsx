@@ -1,6 +1,6 @@
 import { type ProductItem } from "@/ui/types";
 
-type ProductListItemCoverImageProps = ProductItem["coverImage"];
+type ProductListItemCoverImageProps = NonNullable<ProductItem["coverImage"]>;
 
 export function ProductListItemCoverImage({ src, alt }: ProductListItemCoverImageProps) {
   return (

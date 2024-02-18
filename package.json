@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix --dir src",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "codegen": "graphql-codegen --config .graphqlrc.ts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
@@ -16,12 +17,18 @@
     "@next/mdx": "^14.1.0",
     "@types/mdx": "^2.0.11",
     "clsx": "^2.1.0",
+    "graphql": "^16.8.1",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
     "server-only": "^0.0.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "5.0.2",
+    "@graphql-codegen/client-preset": "4.2.2",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@next/env": "^14.1.0",
+    "@parcel/watcher": "^2.4.0",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -38,6 +45,6 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "typescript": "^5.3.3"
   }
 }

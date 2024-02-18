@@ -1,15 +1,15 @@
-import { Suspense } from "react";
+import { type Route } from "next";
 
 import { ProductList } from "@/ui/organisms/ProductList";
-import { ProductsPagination } from "@/ui/organisms/ProductsPagination";
 import * as productsService from "@/services/products";
 import { range } from "@/helpers/range";
+import { Pagination } from "@/ui/molecules/Pagination";
 
 export const metadata = {
   title: "Products - Shop",
 };
 
-const PRODUCTS_PER_PAGE = 20;
+const PRODUCTS_PER_PAGE = 10;
 const DEFAULT_PAGE = 1;
 
 export function generateStaticParams() {
@@ -18,14 +18,19 @@ export function generateStaticParams() {
 
 export default async function ProductsPage({ params }: { params: { pageNumber: string } }) {
   const page = !isNaN(parseInt(params.pageNumber)) ? parseInt(params.pageNumber) : DEFAULT_PAGE;
-  const products = await productsService.getAll(PRODUCTS_PER_PAGE, (page - 1) * PRODUCTS_PER_PAGE);
+  const { data, total } = await productsService.getAll(PRODUCTS_PER_PAGE, (page - 1) * PRODUCTS_PER_PAGE);
 
   return (
     <section className="h-full">
-      <ProductList products={products} />
-      <Suspense>
-        <ProductsPagination page={page} perPage={PRODUCTS_PER_PAGE} />
-      </Suspense>
+      <ProductList products={data} />
+      <div className="flex justify-center p-8">
+        <Pagination
+          total={total}
+          currentPage={page}
+          perPage={PRODUCTS_PER_PAGE}
+          generateHref={(page: number) => `/products/${page}` as Route}
+        />
+      </div>
     </section>
   );
 }

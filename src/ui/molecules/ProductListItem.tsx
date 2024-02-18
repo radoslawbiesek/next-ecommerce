@@ -6,12 +6,12 @@ import { type ProductItem } from "@/ui/types";
 
 type ProductListItemProps = ProductItem;
 
-export function ProductListItem({ coverImage, name, category, price, id }: ProductListItemProps) {
+export function ProductListItem({ coverImage, name, category, price, slug }: ProductListItemProps) {
   return (
     <li className="w-80">
-      <Link href={`/product/${id}`}>
+      <Link href={`/product/${slug}`}>
         <article className="card bg-base-100 shadow-xl">
-          <ProductListItemCoverImage {...coverImage} />
+          {coverImage && <ProductListItemCoverImage {...coverImage} />}
           <ProductListItemDescription name={name} category={category} price={price} />
         </article>
       </Link>
