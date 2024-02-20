@@ -15,11 +15,11 @@ function checkIsActive(pathname: string, href: string, exact: boolean) {
 }
 
 type ActiveLinkProps = {
+  children: React.ReactNode;
   href: Route;
   className?: string;
   activeClassName: string;
   exact?: boolean;
-  children: React.ReactNode;
 };
 export function ActiveLink({ href, children, className, activeClassName, exact = false }: ActiveLinkProps) {
   const pathname = usePathname();

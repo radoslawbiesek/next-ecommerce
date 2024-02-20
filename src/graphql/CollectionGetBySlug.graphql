@@ -1,6 +1,9 @@
-query ProductsGetList($take: Int!, $skip: Int) {
-  products(take: $take, skip: $skip) {
-    data {
+query CollectionGetBySlug($slug: String) {
+  collection(slug: $slug) {
+    name
+    description
+    id
+    products {
       id
       name
       slug
@@ -14,9 +17,6 @@ query ProductsGetList($take: Int!, $skip: Int) {
         alt
       }
       price
-    }
-    meta {
-      total
     }
   }
 }

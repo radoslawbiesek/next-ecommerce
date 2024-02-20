@@ -7,6 +7,8 @@ import { ActiveLink } from "@/ui/atoms/ActiveLink";
 const LINKS = [
   { label: "Home", href: "/", exact: true },
   { label: "All", href: "/products", exact: false },
+  { label: "Categories", href: "/categories", exact: false },
+  { label: "Collections", href: "/collections", exact: false },
 ] as const;
 
 export function Navbar() {

@@ -11,6 +11,15 @@ const nextConfig = {
     typedRoutes: true,
     mdxRs: true,
   },
+  redirects() {
+    return [
+      {
+        source: "/products",
+        destination: "/products/1",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withMdxRs()(nextConfig);

@@ -1,3 +1,5 @@
+import "server-only";
+
 import { type ProductItem } from "@/ui/types";
 import { ProductListItem } from "@/ui/molecules/ProductListItem";
 

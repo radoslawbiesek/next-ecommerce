@@ -245,6 +245,60 @@ export type ReviewList = {
 
 export type SortDirection = "ASC" | "DESC";
 
+export type CategoriesGetListQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CategoriesGetListQuery = {
+  categories: { data: Array<{ name: string; id: string; slug: string; description: string }> };
+};
+
+export type CategoryGetBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars["String"]["input"]>;
+}>;
+
+export type CategoryGetBySlugQuery = {
+  category?: {
+    name: string;
+    description: string;
+    id: string;
+    products: Array<{
+      id: string;
+      name: string;
+      slug: string;
+      description: string;
+      price: number;
+      categories: Array<{ name: string; id: string }>;
+      images: Array<{ url: string; alt: string }>;
+    }>;
+  } | null;
+};
+
+export type CollectionGetBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars["String"]["input"]>;
+}>;
+
+export type CollectionGetBySlugQuery = {
+  collection?: {
+    name: string;
+    description: string;
+    id: string;
+    products: Array<{
+      id: string;
+      name: string;
+      slug: string;
+      description: string;
+      price: number;
+      categories: Array<{ name: string; id: string }>;
+      images: Array<{ url: string; alt: string }>;
+    }>;
+  } | null;
+};
+
+export type CollectionsGetListQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CollectionsGetListQuery = {
+  collections: { data: Array<{ name: string; id: string; slug: string; description: string }> };
+};
+
 export type ProductGetBySlugQueryVariables = Exact<{
   slug?: InputMaybe<Scalars["String"]["input"]>;
 }>;
@@ -256,7 +310,7 @@ export type ProductGetBySlugQuery = {
     description: string;
     price: number;
     slug: string;
-    categories: Array<{ name: string }>;
+    categories: Array<{ name: string; id: string }>;
     images: Array<{ url: string; alt: string }>;
   } | null;
 };
@@ -274,8 +328,8 @@ export type ProductsGetListQuery = {
       slug: string;
       description: string;
       price: number;
-      categories: Array<{ name: string }>;
-      images: Array<{ url: string }>;
+      categories: Array<{ name: string; id: string }>;
+      images: Array<{ url: string; alt: string }>;
     }>;
     meta: { total: number };
   };
@@ -299,6 +353,78 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const CategoriesGetListDocument = new TypedDocumentString(`
+    query CategoriesGetList {
+  categories {
+    data {
+      name
+      id
+      slug
+      description
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CategoriesGetListQuery, CategoriesGetListQueryVariables>;
+export const CategoryGetBySlugDocument = new TypedDocumentString(`
+    query CategoryGetBySlug($slug: String) {
+  category(slug: $slug) {
+    name
+    description
+    id
+    products {
+      id
+      name
+      slug
+      description
+      categories {
+        name
+        id
+      }
+      images {
+        url
+        alt
+      }
+      price
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CategoryGetBySlugQuery, CategoryGetBySlugQueryVariables>;
+export const CollectionGetBySlugDocument = new TypedDocumentString(`
+    query CollectionGetBySlug($slug: String) {
+  collection(slug: $slug) {
+    name
+    description
+    id
+    products {
+      id
+      name
+      slug
+      description
+      categories {
+        name
+        id
+      }
+      images {
+        url
+        alt
+      }
+      price
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionGetBySlugQuery, CollectionGetBySlugQueryVariables>;
+export const CollectionsGetListDocument = new TypedDocumentString(`
+    query CollectionsGetList {
+  collections {
+    data {
+      name
+      id
+      slug
+      description
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionsGetListQuery, CollectionsGetListQueryVariables>;
 export const ProductGetBySlugDocument = new TypedDocumentString(`
     query ProductGetBySlug($slug: String) {
   product(slug: $slug) {
@@ -307,6 +433,7 @@ export const ProductGetBySlugDocument = new TypedDocumentString(`
     description
     categories {
       name
+      id
     }
     price
     images {
@@ -327,9 +454,11 @@ export const ProductsGetListDocument = new TypedDocumentString(`
       description
       categories {
         name
+        id
       }
       images {
         url
+        alt
       }
       price
     }
