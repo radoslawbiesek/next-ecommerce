@@ -1,17 +1,6 @@
 query ProductGetBySlug($slug: String) {
   product(slug: $slug) {
-    id
-    name
+    ...ProductListItem
     description
-    categories {
-      name
-      id
-    }
-    price
-    images {
-      url
-      alt
-    }
-    slug
   }
 }

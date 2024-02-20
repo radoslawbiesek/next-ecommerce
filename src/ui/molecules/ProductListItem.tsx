@@ -2,9 +2,9 @@ import Link from "next/link";
 
 import { ProductListItemDescription } from "@/ui/atoms/ProductListItemDescription";
 import { ProductListItemCoverImage } from "@/ui/atoms/ProductListItemCoverImage";
-import { type ProductItem } from "@/ui/types";
+import { type ProductListItemFragment } from "@/gql/graphql";
 
-type ProductListItemProps = ProductItem;
+type ProductListItemProps = ProductListItemFragment;
 
 export function ProductListItem({ name, price, slug, images, categories }: ProductListItemProps) {
   return (

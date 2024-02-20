@@ -1,6 +1,5 @@
 import { executeGraphQL } from "@/services/graphql";
-import { ProductGetBySlugDocument, ProductsGetListDocument } from "@/gql/graphql";
-import { type ProductItem } from "@/ui/types";
+import { ProductGetBySlugDocument, type ProductListItemFragment, ProductsGetListDocument } from "@/gql/graphql";
 
 export async function getAll({
   take,
@@ -10,7 +9,7 @@ export async function getAll({
   take?: number;
   skip?: number;
   search?: string;
-}): Promise<{ data: ProductItem[]; total: number }> {
+}): Promise<{ data: ProductListItemFragment[]; total: number }> {
   const response = await executeGraphQL(ProductsGetListDocument, { take, skip, search });
 
   return { data: response.products.data, total: response.products.meta.total };

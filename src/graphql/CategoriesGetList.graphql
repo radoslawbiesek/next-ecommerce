@@ -2,9 +2,7 @@ query CategoriesGetList {
   categories {
     data {
       name
-      id
       slug
-      description
     }
   }
 }

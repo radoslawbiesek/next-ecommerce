@@ -1,10 +1,10 @@
 import "server-only";
 
-import { type ProductItem } from "@/ui/types";
 import { ProductListItem } from "@/ui/molecules/ProductListItem";
+import { type ProductListItemFragment } from "@/gql/graphql";
 
 type ProductListProps = {
-  products: ProductItem[];
+  products: ProductListItemFragment[];
 };
 
 export function ProductList({ products }: ProductListProps) {

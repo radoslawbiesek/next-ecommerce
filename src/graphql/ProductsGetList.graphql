@@ -1,19 +1,7 @@
 query ProductsGetList($search: String, $take: Int, $skip: Int) {
   products(search: $search, take: $take, skip: $skip) {
     data {
-      id
-      name
-      slug
-      description
-      categories {
-        name
-        id
-      }
-      images {
-        url
-        alt
-      }
-      price
+      ...ProductListItem
     }
     meta {
       total

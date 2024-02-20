@@ -1,4 +1,5 @@
 import { type Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import * as productsService from "@/services/products";
 import { ProductListItemCoverImage } from "@/ui/atoms/ProductListItemCoverImage";
@@ -26,7 +27,7 @@ export default async function Product({ params }: ProductPageProps) {
   const product = await productsService.getBySlug(params.slug);
 
   if (!product) {
-    return <section className="h-full">Product not found</section>;
+    return notFound();
   }
 
   return (
