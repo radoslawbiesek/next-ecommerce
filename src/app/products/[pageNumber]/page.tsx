@@ -5,12 +5,11 @@ import * as productsService from "@/services/products";
 import { range } from "@/helpers/range";
 import { Pagination } from "@/ui/molecules/Pagination";
 import { parsePage } from "@/helpers/parsePage";
+import { PRODUCTS_PER_PAGE } from "@/contants";
 
 export const metadata = {
   title: "Products - Shop",
 };
-
-const PRODUCTS_PER_PAGE = 10;
 
 export function generateStaticParams() {
   return range(1, 3).map((pageNumber) => ({ pageNumber: pageNumber.toString() }));
