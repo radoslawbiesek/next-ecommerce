@@ -22,7 +22,7 @@ const documents = {
     types.CollectionsGetListDocument,
   "query ProductGetBySlug($slug: String) {\n  product(slug: $slug) {\n    id\n    name\n    description\n    categories {\n      name\n      id\n    }\n    price\n    images {\n      url\n      alt\n    }\n    slug\n  }\n}":
     types.ProductGetBySlugDocument,
-  "query ProductsGetList($take: Int!, $skip: Int) {\n  products(take: $take, skip: $skip) {\n    data {\n      id\n      name\n      slug\n      description\n      categories {\n        name\n        id\n      }\n      images {\n        url\n        alt\n      }\n      price\n    }\n    meta {\n      total\n    }\n  }\n}":
+  "query ProductsGetList($search: String, $take: Int, $skip: Int) {\n  products(search: $search, take: $take, skip: $skip) {\n    data {\n      id\n      name\n      slug\n      description\n      categories {\n        name\n        id\n      }\n      images {\n        url\n        alt\n      }\n      price\n    }\n    meta {\n      total\n    }\n  }\n}":
     types.ProductsGetListDocument,
 };
 
@@ -60,7 +60,7 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "query ProductsGetList($take: Int!, $skip: Int) {\n  products(take: $take, skip: $skip) {\n    data {\n      id\n      name\n      slug\n      description\n      categories {\n        name\n        id\n      }\n      images {\n        url\n        alt\n      }\n      price\n    }\n    meta {\n      total\n    }\n  }\n}",
+  source: "query ProductsGetList($search: String, $take: Int, $skip: Int) {\n  products(search: $search, take: $take, skip: $skip) {\n    data {\n      id\n      name\n      slug\n      description\n      categories {\n        name\n        id\n      }\n      images {\n        url\n        alt\n      }\n      price\n    }\n    meta {\n      total\n    }\n  }\n}",
 ): typeof import("./graphql").ProductsGetListDocument;
 
 export function graphql(source: string) {

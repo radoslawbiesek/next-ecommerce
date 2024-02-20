@@ -18,7 +18,10 @@ export function generateStaticParams() {
 
 export default async function ProductsPage({ params }: { params: { pageNumber: string } }) {
   const page = parsePage(params.pageNumber);
-  const { data, total } = await productsService.getAll(PRODUCTS_PER_PAGE, (page - 1) * PRODUCTS_PER_PAGE);
+  const { data, total } = await productsService.getAll({
+    take: PRODUCTS_PER_PAGE,
+    skip: (page - 1) * PRODUCTS_PER_PAGE,
+  });
 
   return (
     <section className="h-full">

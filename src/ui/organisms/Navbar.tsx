@@ -3,6 +3,7 @@ import "server-only";
 import Link from "next/link";
 
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
+import { Search } from "@/ui/molecules/Search";
 
 const LINKS = [
   { label: "Home", href: "/", exact: true },
@@ -29,6 +30,9 @@ export function Navbar() {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="navbar-end">
+        <Search />
       </div>
     </nav>
   );
