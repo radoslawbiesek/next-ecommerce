@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en" data-theme="light">
       <body>
         <Navbar />
-        <main className="h-full">{children}</main>
+        <main className="container mx-auto">{children}</main>
         <Footer />
       </body>
     </html>

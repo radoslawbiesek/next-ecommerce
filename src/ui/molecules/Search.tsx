@@ -35,7 +35,7 @@ export function Search() {
 
   return (
     <div className="form-control">
-      <label className="input input-sm input-bordered flex w-24 items-center gap-2 md:w-auto">
+      <label className="input input-md input-bordered flex items-center gap-2">
         <input
           type="text"
           className="grow"
@@ -43,7 +43,7 @@ export function Search() {
           onChange={(e) => handleSearch(e.target.value)}
           defaultValue={searchParams.get("query") || ""}
         />
-        <GlassIcon className="h-5 w-5" />
+        <GlassIcon className="h-4 w-4" />
       </label>
     </div>
   );

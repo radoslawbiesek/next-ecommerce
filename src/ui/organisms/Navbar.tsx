@@ -22,12 +22,12 @@ export async function Navbar() {
   ] as const;
 
   return (
-    <nav className="navbar bg-neutral text-neutral-content">
+    <nav className="navbar bg-base-200 px-8">
       <div className="navbar-start">
-        <Link href="/" className="btn btn-ghost text-xl">
+        <Link href="/" className="text-xl">
           Shop
         </Link>
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-4">
           {allLinks.map((link) => (
             <li key={link.href}>
               <ActiveLink href={link.href} activeClassName="underline" exact={link.exact}>
