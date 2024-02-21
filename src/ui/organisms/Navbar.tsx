@@ -1,5 +1,6 @@
 import "server-only";
 
+import { Suspense } from "react";
 import { type Route } from "next";
 import Link from "next/link";
 
@@ -37,7 +38,9 @@ export async function Navbar() {
         </ul>
       </div>
       <div className="navbar-end">
-        <Search />
+        <Suspense>
+          <Search />
+        </Suspense>
       </div>
     </nav>
   );
