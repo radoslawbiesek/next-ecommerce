@@ -1,6 +1,7 @@
-query ProductGetBySlug($slug: String) {
+query ProductGetBySlug($slug: String!) {
   product(slug: $slug) {
     ...ProductListItem
+    ...ProductImages
     description
   }
 }

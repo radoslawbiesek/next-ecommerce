@@ -4,7 +4,7 @@ import { CollectionGetBySlugDocument, CollectionsGetListDocument } from "@/gql/g
 export async function getAll() {
   const response = await executeGraphQL(CollectionsGetListDocument);
 
-  return response.collections.data;
+  return response.collections?.data;
 }
 
 export async function getBySlug(slug: string) {

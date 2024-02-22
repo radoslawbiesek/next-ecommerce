@@ -4,7 +4,7 @@ import { CategoriesGetListDocument, CategoryGetBySlugDocument } from "@/gql/grap
 export async function getAll() {
   const response = await executeGraphQL(CategoriesGetListDocument);
 
-  return response.categories.data;
+  return response.categories?.data;
 }
 
 export async function getBySlug(slug: string) {

@@ -5,7 +5,7 @@ loadEnvConfig(process.cwd());
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: "https://graphql.hyperfunctor.com/graphql",
+  schema: process.env.GRAPHQL_URL,
   documents: "src/graphql/*.graphql",
   generates: {
     "src/gql/": {

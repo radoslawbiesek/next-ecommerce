@@ -34,15 +34,12 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
     return notFound();
   }
 
-  const indexStart = (page - 1) * PRODUCTS_PER_PAGE;
-  const indexEnd = indexStart + PRODUCTS_PER_PAGE;
-
   return (
     <section className="h-full">
-      <ProductList products={result.products.slice(indexStart, indexEnd)} />
+      <ProductList products={result.products.data} />
       <div className="flex justify-center p-8">
         <Pagination
-          total={result.products.length}
+          total={result.products.meta.total}
           currentPage={page}
           perPage={PRODUCTS_PER_PAGE}
           generateHref={(page: number) => `/categories/${params.slug}/${page}` as Route}

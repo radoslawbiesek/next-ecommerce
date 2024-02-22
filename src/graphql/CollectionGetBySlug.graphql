@@ -1,10 +1,16 @@
-query CollectionGetBySlug($slug: String) {
+query CollectionGetBySlug($slug: String!) {
   collection(slug: $slug) {
     name
     description
     id
     products {
-      ...ProductListItem
+      data {
+        ...ProductListItem
+        ...ProductImages
+      }
+      meta {
+        total
+      }
     }
   }
 }

@@ -18,7 +18,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     openGraph: {
       title: `${product.name} - Shop`,
       description: product.description,
-      ...(product.images.length ? { images: product.images } : {}),
+      ...(product.images.length
+        ? { images: product.images.map((image) => ({ url: image.url, ...(image.alt ? { alt: image.alt } : {}) })) }
+        : {}),
     },
   };
 }
@@ -33,15 +35,17 @@ export default async function Product({ params }: ProductPageProps) {
   return (
     <section className="h-full">
       <article className="card bg-base-100 shadow-xl">
-        {product.images[0] && <ProductListItemCoverImage src={product.images[0].url} alt={product.images[0].alt} />}
+        {product.images[0] && (
+          <ProductListItemCoverImage src={product.images[0].url} alt={product.images[0].alt || product.name} />
+        )}
         <div className="flex-column card-body items-end">
           <h1 className="card-title">{product.name}</h1>
           <p>{formatPrice(product.price / 100)}</p>
-          {product.categories.map((category) => (
+          {/* {product.categories.map((category) => (
             <p className="badge badge-outline" key={category.id}>
               {category.name}
             </p>
-          ))}
+          ))} */}
           <p>{product.description}</p>
         </div>
       </article>
