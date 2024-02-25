@@ -29,7 +29,10 @@ export async function generateMetadata({ params }: CategoriesPageProps): Promise
 export default async function CategoriesPage({ params }: CategoriesPageProps) {
   const page = parsePage(params.pageNumber);
 
-  const result = await categoriesService.getBySlug(params.slug);
+  const result = await categoriesService.getBySlug(params.slug, {
+    productsSkip: (page - 1) * PRODUCTS_PER_PAGE,
+    productsTake: PRODUCTS_PER_PAGE,
+  });
   if (!result) {
     return notFound();
   }
@@ -37,7 +40,7 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
   return (
     <section className="h-full">
       <ProductList products={result.products.data} />
-      <div className="flex justify-center p-8">
+      <div className="mt-8 flex justify-center">
         <Pagination
           total={result.products.meta.total}
           currentPage={page}

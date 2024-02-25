@@ -3,4 +3,16 @@ fragment ProductListItem on Product {
   name
   slug
   price
+  rating
+  categories {
+    id
+    name
+    slug
+  }
+  images {
+    url
+    alt
+    width
+    height
+  }
 }

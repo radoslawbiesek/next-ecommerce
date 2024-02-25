@@ -25,7 +25,7 @@ export default async function ProductsPage({ params }: { params: { pageNumber: s
   return (
     <section className="h-full">
       <ProductList products={data} />
-      <div className="flex justify-center p-8">
+      <div className="mt-8 flex justify-center">
         <Pagination
           total={total}
           currentPage={page}

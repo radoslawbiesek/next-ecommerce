@@ -16,14 +16,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     return notFound();
   }
 
-  const filters = {
-    ...(search && search.length >= 2 ? { search } : {}),
-  };
-  const { data } = await productsService.getAll(filters);
+  const { data, total } = await productsService.getAll({ search });
 
   return (
     <section className="h-full">
       <ProductList products={data} />
+      <p className="mt-8 text-center italic">
+        Showing {data.length} of {total} total results
+      </p>
     </section>
   );
 }

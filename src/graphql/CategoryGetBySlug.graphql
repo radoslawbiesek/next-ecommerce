@@ -1,12 +1,11 @@
-query CategoryGetBySlug($slug: String!) {
+query CategoryGetBySlug($slug: String!, $products_take: Int, $products_skip: Int) {
   category(slug: $slug) {
     name
     description
     id
-    products {
+    products(take: $products_take, skip: $products_skip) {
       data {
         ...ProductListItem
-        ...ProductImages
       }
       meta {
         total

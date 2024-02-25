@@ -7,8 +7,15 @@ export async function getAll() {
   return response.collections?.data;
 }
 
-export async function getBySlug(slug: string) {
-  const response = await executeGraphQL(CollectionGetBySlugDocument, { slug });
+export async function getBySlug(
+  slug: string,
+  { productsTake, productsSkip }: { productsTake?: number; productsSkip?: number } = {},
+) {
+  const response = await executeGraphQL(CollectionGetBySlugDocument, {
+    slug,
+    products_take: productsTake,
+    products_skip: productsSkip,
+  });
 
   return response.collection;
 }
