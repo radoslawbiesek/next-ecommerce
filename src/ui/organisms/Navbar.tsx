@@ -18,7 +18,9 @@ export async function Navbar() {
 
   const allLinks = [
     ...BASE_LINKS,
-    ...categories.map((c) => ({ label: c.name, href: `/categories/${c.slug}` as Route, exact: false })),
+    ...(categories
+      ? categories.map((c) => ({ label: c.name, href: `/categories/${c.slug}` as Route, exact: false }))
+      : []),
   ] as const;
 
   return (
@@ -30,7 +32,12 @@ export async function Navbar() {
         <ul className="menu menu-horizontal px-4">
           {allLinks.map((link) => (
             <li key={link.href}>
-              <ActiveLink href={link.href} activeClassName="underline" exact={link.exact}>
+              <ActiveLink
+                href={link.href}
+                className="rounded-none"
+                activeClassName="border-b-2 border-slate-500"
+                exact={link.exact}
+              >
                 {link.label}
               </ActiveLink>
             </li>

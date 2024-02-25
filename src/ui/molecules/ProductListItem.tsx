@@ -1,14 +1,15 @@
 import Link from "next/link";
+import clsx from "clsx";
 
 import { ProductListItemDescription } from "@/ui/atoms/ProductListItemDescription";
 import { ProductListItemCoverImage } from "@/ui/atoms/ProductListItemCoverImage";
 import { type ProductListItemFragment } from "@/gql/graphql";
 
-type ProductListItemProps = ProductListItemFragment;
+type ProductListItemProps = ProductListItemFragment & { className?: string };
 
 export function ProductListItem(props: ProductListItemProps) {
   return (
-    <li className="w-80">
+    <li className={clsx("w-80", props.className)}>
       <Link href={`/product/${props.slug}`}>
         <article className="card bg-base-100 shadow-xl">
           {props.images[0] && (

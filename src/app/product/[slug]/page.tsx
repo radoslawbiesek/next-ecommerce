@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { type Metadata } from "next";
 import NextImage from "next/image";
 import { notFound } from "next/navigation";
@@ -5,6 +6,7 @@ import { notFound } from "next/navigation";
 import * as productsService from "@/services/products";
 import { formatPrice } from "@/helpers/formatPrice";
 import { CheckIcon } from "@/ui/atoms/CheckIcon";
+import { RecommendedProducts } from "@/ui/organisms/RecommendedProducts";
 
 type ProductPageProps = {
   params: { slug: string };
@@ -74,6 +76,9 @@ export default async function Product({ params }: ProductPageProps) {
           </form>
         </div>
       </article>
+      <Suspense>
+        <RecommendedProducts productId={product.id} />
+      </Suspense>
     </section>
   );
 }

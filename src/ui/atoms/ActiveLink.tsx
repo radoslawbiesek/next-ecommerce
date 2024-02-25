@@ -21,6 +21,7 @@ type ActiveLinkProps = {
   activeClassName: string;
   exact?: boolean;
 };
+
 export function ActiveLink({ href, children, className, activeClassName, exact = false }: ActiveLinkProps) {
   const pathname = usePathname();
   const isActive = checkIsActive(pathname, href, exact);

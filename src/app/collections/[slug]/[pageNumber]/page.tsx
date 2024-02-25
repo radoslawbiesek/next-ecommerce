@@ -39,7 +39,8 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
   return (
     <section className="h-full">
-      <ProductList products={result.products.data} />
+      <h1 className="text-center text-3xl font-bold">{result.name}</h1>
+      <ProductList className="mt-8" products={result.products.data} />
       <div className="mt-8 flex justify-center">
         <Pagination
           total={result.products.meta.total}

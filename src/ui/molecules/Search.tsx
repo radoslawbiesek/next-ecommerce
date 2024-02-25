@@ -40,6 +40,8 @@ export function Search() {
           type="text"
           className="grow"
           placeholder="Search products..."
+          aria-label="search"
+          role="searchbox"
           onChange={(e) => handleSearch(e.target.value)}
           defaultValue={searchParams.get("query") || ""}
         />

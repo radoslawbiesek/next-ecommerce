@@ -1,19 +1,19 @@
 /* eslint-disable */
-import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
+import type { DocumentTypeDecoration } from "@graphql-typed-document-node/core";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
 };
 
 export type Categories = {
@@ -21,46 +21,44 @@ export type Categories = {
 };
 
 export type Category = {
-  description?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
-  name: Scalars['String']['output'];
+  description?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["Int"]["output"];
+  name: Scalars["String"]["output"];
   products: Products;
-  slug: Scalars['String']['output'];
+  slug: Scalars["String"]["output"];
 };
 
-
 export type CategoryProductsArgs = {
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars["Int"]["input"]>;
+  take?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type CategoryListItem = {
-  description?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
-  name: Scalars['String']['output'];
-  slug: Scalars['String']['output'];
+  description?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["Int"]["output"];
+  name: Scalars["String"]["output"];
+  slug: Scalars["String"]["output"];
 };
 
 export type Collection = {
-  description?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
-  name: Scalars['String']['output'];
+  description?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["Int"]["output"];
+  name: Scalars["String"]["output"];
   products: Products;
-  slug: Scalars['String']['output'];
+  slug: Scalars["String"]["output"];
 };
 
-
 export type CollectionProductsArgs = {
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars["Int"]["input"]>;
+  take?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type CollectionListItem = {
-  description?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
-  imageUrl: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  slug: Scalars['String']['output'];
+  description?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["Int"]["output"];
+  imageUrl: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+  slug: Scalars["String"]["output"];
 };
 
 export type Collections = {
@@ -68,28 +66,28 @@ export type Collections = {
 };
 
 export type Image = {
-  alt?: Maybe<Scalars['String']['output']>;
-  height: Scalars['Int']['output'];
-  id: Scalars['Int']['output'];
-  url: Scalars['String']['output'];
-  width: Scalars['Int']['output'];
+  alt?: Maybe<Scalars["String"]["output"]>;
+  height: Scalars["Int"]["output"];
+  id: Scalars["Int"]["output"];
+  url: Scalars["String"]["output"];
+  width: Scalars["Int"]["output"];
 };
 
 export type Meta = {
-  total: Scalars['Int']['output'];
+  total: Scalars["Int"]["output"];
 };
 
 export type Product = {
   categories: Array<Category>;
-  description: Scalars['String']['output'];
-  id: Scalars['Int']['output'];
+  description: Scalars["String"]["output"];
+  id: Scalars["Int"]["output"];
   images: Array<Image>;
-  inStock: Scalars['Int']['output'];
-  name: Scalars['String']['output'];
-  price: Scalars['Int']['output'];
-  rating: Scalars['Int']['output'];
-  slug: Scalars['String']['output'];
-  variants: Array<Scalars['String']['output']>;
+  inStock: Scalars["Int"]["output"];
+  name: Scalars["String"]["output"];
+  price: Scalars["Int"]["output"];
+  rating: Scalars["Int"]["output"];
+  slug: Scalars["String"]["output"];
+  variants: Array<Scalars["String"]["output"]>;
 };
 
 export type Products = {
@@ -104,83 +102,175 @@ export type Query = {
   collections?: Maybe<Collections>;
   product?: Maybe<Product>;
   products?: Maybe<Products>;
+  recommended_products?: Maybe<Products>;
 };
-
 
 export type QueryCategoryArgs = {
-  slug: Scalars['String']['input'];
+  slug: Scalars["String"]["input"];
 };
-
 
 export type QueryCollectionArgs = {
-  slug: Scalars['String']['input'];
+  slug: Scalars["String"]["input"];
 };
-
 
 export type QueryProductArgs = {
-  slug: Scalars['String']['input'];
+  slug: Scalars["String"]["input"];
 };
-
 
 export type QueryProductsArgs = {
-  search?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
+  skip?: InputMaybe<Scalars["Int"]["input"]>;
+  take?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
-export type CategoriesGetListQueryVariables = Exact<{ [key: string]: never; }>;
+export type QueryRecommended_ProductsArgs = {
+  productId: Scalars["Int"]["input"];
+  take?: InputMaybe<Scalars["Int"]["input"]>;
+};
 
+export type CategoriesGetListQueryVariables = Exact<{ [key: string]: never }>;
 
-export type CategoriesGetListQuery = { categories?: { data: Array<{ name: string, slug: string }> } | null };
+export type CategoriesGetListQuery = { categories?: { data: Array<{ name: string; slug: string }> } | null };
 
 export type CategoryGetBySlugQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
-  products_take?: InputMaybe<Scalars['Int']['input']>;
-  products_skip?: InputMaybe<Scalars['Int']['input']>;
+  slug: Scalars["String"]["input"];
+  products_take?: InputMaybe<Scalars["Int"]["input"]>;
+  products_skip?: InputMaybe<Scalars["Int"]["input"]>;
 }>;
 
-
-export type CategoryGetBySlugQuery = { category?: { name: string, description?: string | null, id: number, products: { data: Array<{ id: number, name: string, slug: string, price: number, rating: number, categories: Array<{ id: number, name: string, slug: string }>, images: Array<{ url: string, alt?: string | null, width: number, height: number }> }>, meta: { total: number } } } | null };
+export type CategoryGetBySlugQuery = {
+  category?: {
+    name: string;
+    description?: string | null;
+    id: number;
+    products: {
+      data: Array<{
+        id: number;
+        name: string;
+        slug: string;
+        price: number;
+        rating: number;
+        categories: Array<{ id: number; name: string; slug: string }>;
+        images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
+      }>;
+      meta: { total: number };
+    };
+  } | null;
+};
 
 export type CollectionGetBySlugQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
-  products_take?: InputMaybe<Scalars['Int']['input']>;
-  products_skip?: InputMaybe<Scalars['Int']['input']>;
+  slug: Scalars["String"]["input"];
+  products_take?: InputMaybe<Scalars["Int"]["input"]>;
+  products_skip?: InputMaybe<Scalars["Int"]["input"]>;
 }>;
 
+export type CollectionGetBySlugQuery = {
+  collection?: {
+    name: string;
+    description?: string | null;
+    id: number;
+    products: {
+      data: Array<{
+        id: number;
+        name: string;
+        slug: string;
+        price: number;
+        rating: number;
+        categories: Array<{ id: number; name: string; slug: string }>;
+        images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
+      }>;
+      meta: { total: number };
+    };
+  } | null;
+};
 
-export type CollectionGetBySlugQuery = { collection?: { name: string, description?: string | null, id: number, products: { data: Array<{ id: number, name: string, slug: string, price: number, rating: number, categories: Array<{ id: number, name: string, slug: string }>, images: Array<{ url: string, alt?: string | null, width: number, height: number }> }>, meta: { total: number } } } | null };
+export type CollectionsGetListQueryVariables = Exact<{ [key: string]: never }>;
 
-export type CollectionsGetListQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CollectionsGetListQuery = { collections?: { data: Array<{ name: string, id: number, slug: string, description?: string | null, imageUrl: string }> } | null };
+export type CollectionsGetListQuery = {
+  collections?: {
+    data: Array<{ name: string; id: number; slug: string; description?: string | null; imageUrl: string }>;
+  } | null;
+};
 
 export type ProductGetBySlugQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
+  slug: Scalars["String"]["input"];
 }>;
 
+export type ProductGetBySlugQuery = {
+  product?: {
+    description: string;
+    variants: Array<string>;
+    inStock: number;
+    id: number;
+    name: string;
+    slug: string;
+    price: number;
+    rating: number;
+    categories: Array<{ id: number; name: string; slug: string }>;
+    images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
+  } | null;
+};
 
-export type ProductGetBySlugQuery = { product?: { description: string, variants: Array<string>, inStock: number, id: number, name: string, slug: string, price: number, rating: number, categories: Array<{ id: number, name: string, slug: string }>, images: Array<{ url: string, alt?: string | null, width: number, height: number }> } | null };
-
-export type ProductListItemFragment = { id: number, name: string, slug: string, price: number, rating: number, categories: Array<{ id: number, name: string, slug: string }>, images: Array<{ url: string, alt?: string | null, width: number, height: number }> };
+export type ProductListItemFragment = {
+  id: number;
+  name: string;
+  slug: string;
+  price: number;
+  rating: number;
+  categories: Array<{ id: number; name: string; slug: string }>;
+  images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
+};
 
 export type ProductsGetListQueryVariables = Exact<{
-  search?: InputMaybe<Scalars['String']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
+  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: InputMaybe<Scalars["Int"]["input"]>;
 }>;
 
+export type ProductsGetListQuery = {
+  products?: {
+    data: Array<{
+      id: number;
+      name: string;
+      slug: string;
+      price: number;
+      rating: number;
+      categories: Array<{ id: number; name: string; slug: string }>;
+      images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
+    }>;
+    meta: { total: number };
+  } | null;
+};
 
-export type ProductsGetListQuery = { products?: { data: Array<{ id: number, name: string, slug: string, price: number, rating: number, categories: Array<{ id: number, name: string, slug: string }>, images: Array<{ url: string, alt?: string | null, width: number, height: number }> }>, meta: { total: number } } | null };
+export type RecommendedProductsGetListQueryVariables = Exact<{
+  productId: Scalars["Int"]["input"];
+  take?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type RecommendedProductsGetListQuery = {
+  recommended_products?: {
+    data: Array<{
+      id: number;
+      name: string;
+      slug: string;
+      price: number;
+      rating: number;
+      categories: Array<{ id: number; name: string; slug: string }>;
+      images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
+    }>;
+  } | null;
+};
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
 {
-  __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType'];
+  __apiType?: DocumentTypeDecoration<TResult, TVariables>["__apiType"];
 
-  constructor(private value: string, public __meta__?: Record<string, any>) {
+  constructor(
+    private value: string,
+    public __meta__?: Record<string, any>,
+  ) {
     super(value);
   }
 
@@ -188,7 +278,8 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-export const ProductListItemFragmentDoc = new TypedDocumentString(`
+export const ProductListItemFragmentDoc = new TypedDocumentString(
+  `
     fragment ProductListItem on Product {
   id
   name
@@ -207,7 +298,9 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
     height
   }
 }
-    `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+    `,
+  { fragmentName: "ProductListItem" },
+) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
 export const CategoriesGetListDocument = new TypedDocumentString(`
     query CategoriesGetList {
   categories {
@@ -355,3 +448,29 @@ export const ProductsGetListDocument = new TypedDocumentString(`
     height
   }
 }`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+export const RecommendedProductsGetListDocument = new TypedDocumentString(`
+    query RecommendedProductsGetList($productId: Int!, $take: Int) {
+  recommended_products(productId: $productId, take: $take) {
+    data {
+      ...ProductListItem
+    }
+  }
+}
+    fragment ProductListItem on Product {
+  id
+  name
+  slug
+  price
+  rating
+  categories {
+    id
+    name
+    slug
+  }
+  images {
+    url
+    alt
+    width
+    height
+  }
+}`) as unknown as TypedDocumentString<RecommendedProductsGetListQuery, RecommendedProductsGetListQueryVariables>;
