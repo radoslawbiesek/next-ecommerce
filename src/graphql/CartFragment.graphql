@@ -5,5 +5,8 @@ fragment Cart on Cart {
     price
     variant
     quantity
+    product {
+      ...ProductListItem
+    }
   }
 }

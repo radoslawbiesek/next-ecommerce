@@ -2,21 +2,20 @@ import NextLink from "next/link";
 import { cookies } from "next/headers";
 import clsx from "clsx";
 
-import { CartGetByIdDocument } from "@/gql/graphql";
-import { executeGraphQL } from "@/services/graphql";
 import { CartIcon } from "@/ui/atoms/CartIcon";
+import * as cartService from "@/services/cart";
 
 async function getCount(cartId?: number) {
   if (!cartId) {
     return 0;
   }
 
-  const response = await executeGraphQL(CartGetByIdDocument, { id: cartId });
-  if (!response.cart) {
+  const cart = await cartService.getById(cartId);
+  if (!cart) {
     return 0;
   }
 
-  return response.cart?.items.reduce((acc, item) => (acc += item.quantity), 0);
+  return cart.items.reduce((acc, item) => (acc += item.quantity), 0);
 }
 
 export async function CartLink() {

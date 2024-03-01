@@ -25,12 +25,12 @@ export async function Navbar() {
   ] as const;
 
   return (
-    <nav className="navbar bg-base-200 px-8">
-      <div className="navbar-start">
+    <nav className="navbar bg-base-200 px-8 py-0">
+      <div className="navbar-start gap-2">
         <Link href="/" className="text-xl">
           Shop
         </Link>
-        <ul className="menu menu-horizontal px-4">
+        <ul className="menu menu-horizontal px-4 py-0">
           {allLinks.map((link) => (
             <li key={link.href}>
               <ActiveLink
@@ -45,7 +45,7 @@ export async function Navbar() {
           ))}
         </ul>
       </div>
-      <div className="navbar-end flex gap-2">
+      <div className="navbar-end gap-4">
         <Suspense>
           <Search />
         </Suspense>
