@@ -1,33 +1,25 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { revalidateTag } from "next/cache";
 
-import { CartFindOrCreateDocument, type CartFragment } from "@/gql/graphql";
-import { executeGraphQL } from "@/services/graphql";
+import * as cartService from "@/services/cart";
 
 export async function addProduct(formData: FormData) {
   const productId = formData.get("productId") as string;
   const quantity = formData.get("quantity") as string;
   const variant = formData.get("variant") as string;
 
-  return getOrCreateCart({
+  return getOrCreate({
     productId: parseInt(productId),
     quantity: parseInt(quantity),
     variant,
   });
 }
 
-async function getOrCreateCart(input?: {
-  productId: number;
-  quantity: number;
-  variant: string;
-}): Promise<CartFragment> {
+async function getOrCreate(input?: { productId: number; quantity: number; variant: string }) {
   const cartId = cookies().get("cartId")?.value;
-
-  const { cartFindOrCreate: cart } = await executeGraphQL(CartFindOrCreateDocument, {
-    input,
-    ...(cartId ? { id: parseInt(cartId) } : {}),
-  });
+  const cart = await cartService.findOrCreate(cartId ? parseInt(cartId) : undefined, input);
 
   if (!cart) {
     throw new Error("Could not create cart");
@@ -36,4 +28,18 @@ async function getOrCreateCart(input?: {
   cookies().set("cartId", cart.id.toString());
 
   return cart;
+}
+
+export async function changeItemQuantity(cartItemId: number, quantity: number) {
+  const result = await cartService.changeItemQuantity(cartItemId, quantity);
+  revalidateTag("cart");
+
+  return result;
+}
+
+export async function removeItem(cartItemId: number) {
+  const result = await cartService.removeItem(cartItemId);
+  revalidateTag("cart");
+
+  return result;
 }

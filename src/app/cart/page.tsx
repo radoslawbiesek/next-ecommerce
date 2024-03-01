@@ -4,7 +4,8 @@ import NextLink from "next/link";
 
 import * as cartService from "@/services/cart";
 import { formatPrice } from "@/helpers/formatPrice";
-import { TrashIcon } from "@/ui/atoms/TrashIcon";
+import { ChangeCartItemQuantity } from "@/ui/molecules/ChangeCartItemQuantity";
+import { RemoveCartItemButtom } from "@/ui/molecules/RemoveCartItemButtom";
 
 export default async function CartPage() {
   const cartId = cookies().get("cartId")?.value;
@@ -15,8 +16,8 @@ export default async function CartPage() {
 
   const cart = await cartService.getById(parseInt(cartId));
 
-  if (!cart) {
-    return <p>Your cart is empty</p>;
+  if (!cart?.items.length) {
+    return <h1 className="my-8 text-center text-3xl font-bold">Your cart is empty</h1>;
   }
 
   const total = cart.items.reduce((acc, item) => (acc += item.quantity * item.product.price), 0);
@@ -26,7 +27,7 @@ export default async function CartPage() {
       <h1 className="text-3xl font-bold">Your shopping cart</h1>
       <div className="flex items-start gap-8">
         <ul className="mt-8 flex flex-1 flex-col gap-2">
-          {cart.items.map(({ product, variant, quantity, productId }, index) => (
+          {cart.items.map(({ id, product, variant, quantity, productId }, index) => (
             <li key={`${productId}-${variant}`}>
               {index !== 0 && <div className="divider" />}
               <div className="card lg:card-side">
@@ -47,18 +48,12 @@ export default async function CartPage() {
                       <p>{variant}</p>
                     </NextLink>
                   </div>
-                  <div className="join">
-                    <button className="btn join-item">-</button>
-                    <div className="join-items flex items-center px-6">{quantity}</div>
-                    <button className="btn join-item">+</button>
-                  </div>
+                  <ChangeCartItemQuantity cartItemId={id} quantity={quantity} />
                   <div className="flex flex-col items-center">
                     <span className="text-xl font-semibold">{formatPrice((quantity * product.price) / 100)}</span>
                     <span className="text-sm italic">{formatPrice(product.price / 100)} per item</span>
                   </div>
-                  <button className="btn btn-circle btn-ghost">
-                    <TrashIcon />
-                  </button>
+                  <RemoveCartItemButtom cartItemId={id} />
                 </div>
               </div>
             </li>
