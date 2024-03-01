@@ -16,6 +16,24 @@ export type Scalars = {
   Float: { input: number; output: number };
 };
 
+export type CardItemInput = {
+  productId: Scalars["Int"]["input"];
+  quantity: Scalars["Int"]["input"];
+  variant: Scalars["String"]["input"];
+};
+
+export type Cart = {
+  id: Scalars["Int"]["output"];
+  items: Array<CartItem>;
+};
+
+export type CartItem = {
+  price?: Maybe<Scalars["Int"]["output"]>;
+  productId: Scalars["Int"]["output"];
+  quantity: Scalars["Int"]["output"];
+  variant: Scalars["String"]["output"];
+};
+
 export type Categories = {
   data: Array<CategoryListItem>;
 };
@@ -77,6 +95,34 @@ export type Meta = {
   total: Scalars["Int"]["output"];
 };
 
+export type Mutation = {
+  cartAddItem: Cart;
+  cartFindOrCreate: Cart;
+  cartRemoveItem: Cart;
+  cartUpdateItemQuantity: Cart;
+};
+
+export type MutationCartAddItemArgs = {
+  cartId: Scalars["Int"]["input"];
+  item: CardItemInput;
+};
+
+export type MutationCartFindOrCreateArgs = {
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  input?: InputMaybe<CardItemInput>;
+};
+
+export type MutationCartRemoveItemArgs = {
+  cartId: Scalars["Int"]["input"];
+  productId: Scalars["Int"]["input"];
+};
+
+export type MutationCartUpdateItemQuantityArgs = {
+  cartId: Scalars["Int"]["input"];
+  productId: Scalars["Int"]["input"];
+  quantity: Scalars["Int"]["input"];
+};
+
 export type Product = {
   categories: Array<Category>;
   description: Scalars["String"]["output"];
@@ -96,6 +142,7 @@ export type Products = {
 };
 
 export type Query = {
+  cart?: Maybe<Cart>;
   categories?: Maybe<Categories>;
   category?: Maybe<Category>;
   collection?: Maybe<Collection>;
@@ -103,6 +150,10 @@ export type Query = {
   product?: Maybe<Product>;
   products?: Maybe<Products>;
   recommended_products?: Maybe<Products>;
+};
+
+export type QueryCartArgs = {
+  id: Scalars["Int"]["input"];
 };
 
 export type QueryCategoryArgs = {
@@ -126,6 +177,34 @@ export type QueryProductsArgs = {
 export type QueryRecommended_ProductsArgs = {
   productId: Scalars["Int"]["input"];
   take?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type CartFindOrCreateMutationVariables = Exact<{
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  input?: InputMaybe<CardItemInput>;
+}>;
+
+export type CartFindOrCreateMutation = {
+  cartFindOrCreate: {
+    id: number;
+    items: Array<{ productId: number; price?: number | null; variant: string; quantity: number }>;
+  };
+};
+
+export type CartFragment = {
+  id: number;
+  items: Array<{ productId: number; price?: number | null; variant: string; quantity: number }>;
+};
+
+export type CartGetByIdQueryVariables = Exact<{
+  id: Scalars["Int"]["input"];
+}>;
+
+export type CartGetByIdQuery = {
+  cart?: {
+    id: number;
+    items: Array<{ productId: number; price?: number | null; variant: string; quantity: number }>;
+  } | null;
 };
 
 export type CategoriesGetListQueryVariables = Exact<{ [key: string]: never }>;
@@ -278,6 +357,20 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const CartFragmentDoc = new TypedDocumentString(
+  `
+    fragment Cart on Cart {
+  id
+  items {
+    productId
+    price
+    variant
+    quantity
+  }
+}
+    `,
+  { fragmentName: "Cart" },
+) as unknown as TypedDocumentString<CartFragment, unknown>;
 export const ProductListItemFragmentDoc = new TypedDocumentString(
   `
     fragment ProductListItem on Product {
@@ -301,6 +394,36 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: "ProductListItem" },
 ) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+export const CartFindOrCreateDocument = new TypedDocumentString(`
+    mutation CartFindOrCreate($id: Int, $input: CardItemInput) {
+  cartFindOrCreate(id: $id, input: $input) {
+    ...Cart
+  }
+}
+    fragment Cart on Cart {
+  id
+  items {
+    productId
+    price
+    variant
+    quantity
+  }
+}`) as unknown as TypedDocumentString<CartFindOrCreateMutation, CartFindOrCreateMutationVariables>;
+export const CartGetByIdDocument = new TypedDocumentString(`
+    query CartGetById($id: Int!) {
+  cart(id: $id) {
+    ...Cart
+  }
+}
+    fragment Cart on Cart {
+  id
+  items {
+    productId
+    price
+    variant
+    quantity
+  }
+}`) as unknown as TypedDocumentString<CartGetByIdQuery, CartGetByIdQueryVariables>;
 export const CategoriesGetListDocument = new TypedDocumentString(`
     query CategoriesGetList {
   categories {

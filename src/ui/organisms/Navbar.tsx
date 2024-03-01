@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 import { Search } from "@/ui/molecules/Search";
 import * as categoriesService from "@/services/categories";
+import { CartLink } from "@/ui/molecules/CartLink";
 
 const BASE_LINKS = [
   { label: "Home", href: "/", exact: true },
@@ -44,10 +45,11 @@ export async function Navbar() {
           ))}
         </ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end flex gap-2">
         <Suspense>
           <Search />
         </Suspense>
+        <CartLink />
       </div>
     </nav>
   );

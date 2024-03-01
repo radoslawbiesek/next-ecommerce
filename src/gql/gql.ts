@@ -12,6 +12,11 @@ import * as types from "./graphql";
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+  "mutation CartFindOrCreate($id: Int, $input: CardItemInput) {\n  cartFindOrCreate(id: $id, input: $input) {\n    ...Cart\n  }\n}":
+    types.CartFindOrCreateDocument,
+  "fragment Cart on Cart {\n  id\n  items {\n    productId\n    price\n    variant\n    quantity\n  }\n}":
+    types.CartFragmentDoc,
+  "query CartGetById($id: Int!) {\n  cart(id: $id) {\n    ...Cart\n  }\n}": types.CartGetByIdDocument,
   "query CategoriesGetList {\n  categories {\n    data {\n      name\n      slug\n    }\n  }\n}":
     types.CategoriesGetListDocument,
   "query CategoryGetBySlug($slug: String!, $products_take: Int, $products_skip: Int) {\n  category(slug: $slug) {\n    name\n    description\n    id\n    products(take: $products_take, skip: $products_skip) {\n      data {\n        ...ProductListItem\n      }\n      meta {\n        total\n      }\n    }\n  }\n}":
@@ -30,6 +35,24 @@ const documents = {
     types.RecommendedProductsGetListDocument,
 };
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "mutation CartFindOrCreate($id: Int, $input: CardItemInput) {\n  cartFindOrCreate(id: $id, input: $input) {\n    ...Cart\n  }\n}",
+): typeof import("./graphql").CartFindOrCreateDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "fragment Cart on Cart {\n  id\n  items {\n    productId\n    price\n    variant\n    quantity\n  }\n}",
+): typeof import("./graphql").CartFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "query CartGetById($id: Int!) {\n  cart(id: $id) {\n    ...Cart\n  }\n}",
+): typeof import("./graphql").CartGetByIdDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

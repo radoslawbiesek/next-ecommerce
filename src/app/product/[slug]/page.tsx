@@ -4,9 +4,11 @@ import NextImage from "next/image";
 import { notFound } from "next/navigation";
 
 import * as productsService from "@/services/products";
+import * as cartActions from "@/actions/cart";
 import { formatPrice } from "@/helpers/formatPrice";
 import { CheckIcon } from "@/ui/atoms/CheckIcon";
 import { RecommendedProducts } from "@/ui/organisms/RecommendedProducts";
+import { AddToCartButton } from "@/ui/molecules/AddToCartButton";
 
 type ProductPageProps = {
   params: { slug: string };
@@ -59,20 +61,36 @@ export default async function Product({ params }: ProductPageProps) {
               <span className="ml-1">In stock</span>
             </div>
           )}
-          <form className="mt-8">
-            <label className="form-control mt-2 w-full max-w-xs">
-              <select className="select select-bordered">
-                <option disabled selected>
-                  Select variant
-                </option>
-                {product.variants.map((option) => (
-                  <option key={option}>{option}</option>
-                ))}
-              </select>
-            </label>
-            <button className="btn btn-neutral mt-2 w-full max-w-xs" disabled={product.inStock === 0}>
-              Add to cart
-            </button>
+          <form className="mt-8 flex w-full max-w-xs flex-col gap-4" action={cartActions.addProduct}>
+            <input type="hidden" name="productId" value={product.id} />
+            <div className="flex gap-2">
+              <label className="form-control w-6/12">
+                <div className="label">
+                  <span className="label-text">Variant</span>
+                </div>
+                <select className="select select-bordered" name="variant" defaultValue={product.variants[0]} required>
+                  {product.variants.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="form-control w-6/12">
+                <div className="label">
+                  <span className="label-text">Quantity</span>
+                </div>
+                <input
+                  name="quantity"
+                  type="number"
+                  min={1}
+                  defaultValue={1}
+                  placeholder="Quantity"
+                  className="input input-bordered"
+                />
+              </label>
+            </div>
+            <AddToCartButton />
           </form>
         </div>
       </article>
