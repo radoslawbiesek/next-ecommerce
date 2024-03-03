@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import { type Route, type Metadata } from "next";
 
-import { ProductList } from "@/ui/organisms/ProductList";
+import { ProductList } from "@/ui/components/products/ProductList";
 import * as collectionService from "@/services/collections";
-import { Pagination } from "@/ui/molecules/Pagination";
+import { Pagination } from "@/ui/components/common/Pagination";
 import { parsePage } from "@/helpers/parsePage";
 import { PRODUCTS_PER_PAGE } from "@/contants";
 

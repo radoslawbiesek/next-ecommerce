@@ -1,6 +1,6 @@
 import { type ProductListItemFragment } from "@/gql/graphql";
 import { formatPrice } from "@/helpers/formatPrice";
-import { Rating } from "@/ui/elements/Rating";
+import { Rating } from "@/ui/components/reviews/Rating";
 
 type ProductListItemDescriptionProps = Pick<ProductListItemFragment, "name" | "price" | "categories" | "rating">;
 

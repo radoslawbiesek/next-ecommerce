@@ -4,8 +4,8 @@ import NextLink from "next/link";
 
 import * as cartService from "@/services/cart";
 import { formatPrice } from "@/helpers/formatPrice";
-import { ChangeCartItemQuantity } from "@/ui/molecules/ChangeCartItemQuantity";
-import { RemoveCartItemButtom } from "@/ui/molecules/RemoveCartItemButtom";
+import { ChangeCartItemQuantity } from "@/ui/components/cart/ChangeCartItemQuantity";
+import { RemoveCartItemButtom } from "@/ui/components/cart/RemoveCartItemButtom";
 
 export default async function CartPage() {
   const cartId = cookies().get("cartId")?.value;

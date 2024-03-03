@@ -4,7 +4,7 @@ import { useOptimistic } from "react";
 
 import clsx from "clsx";
 
-import { Rating } from "@/ui/elements/Rating";
+import { Rating } from "@/ui/components/reviews/Rating";
 import { ReviewForm } from "@/ui/components/reviews/ReviewForm";
 import { ReviewsList } from "@/ui/components/reviews/ReviewsList";
 import { type ReviewFragment, type ProductListItemFragment, type ReviewInput } from "@/gql/graphql";

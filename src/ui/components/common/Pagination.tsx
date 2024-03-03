@@ -3,7 +3,7 @@ import "server-only";
 import { type Route } from "next";
 import clsx from "clsx";
 
-import { ActiveLink } from "@/ui/atoms/ActiveLink";
+import { ActiveLink } from "@/ui/components/common/ActiveLink";
 import { range } from "@/helpers/range";
 
 type PaginationProps = {

@@ -1,5 +1,5 @@
 import { type ReviewFragment } from "@/gql/graphql";
-import { Rating } from "@/ui/elements/Rating";
+import { Rating } from "@/ui/components/reviews/Rating";
 
 type ReviewsListProps = { reviews: ReviewFragment[] };
 

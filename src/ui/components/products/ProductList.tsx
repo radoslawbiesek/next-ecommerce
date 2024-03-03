@@ -1,7 +1,7 @@
 import "server-only";
 import clsx from "clsx";
 
-import { ProductListItem } from "@/ui/molecules/ProductListItem";
+import { ProductListItem } from "@/ui/components/products/ProductListItem";
 import { type ProductListItemFragment } from "@/gql/graphql";
 
 type ProductListProps = {

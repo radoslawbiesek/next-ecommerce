@@ -7,7 +7,7 @@ import * as productsService from "@/services/products";
 import * as cartActions from "@/actions/cart";
 import { formatPrice } from "@/helpers/formatPrice";
 import { CheckIcon } from "@/ui/elements/icons/CheckIcon";
-import { RecommendedProducts } from "@/ui/organisms/RecommendedProducts";
+import { RecommendedProducts } from "@/ui/components/products/RecommendedProducts";
 import { SubmitButton } from "@/ui/elements/form/SubmitButton";
 import { ReviewsWrapper } from "@/ui/components/reviews/ReviewsWrapper";
 

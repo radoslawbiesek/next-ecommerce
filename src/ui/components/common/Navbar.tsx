@@ -4,10 +4,10 @@ import { Suspense } from "react";
 import { type Route } from "next";
 import Link from "next/link";
 
-import { ActiveLink } from "@/ui/atoms/ActiveLink";
-import { Search } from "@/ui/molecules/Search";
+import { ActiveLink } from "@/ui/components/common/ActiveLink";
+import { Search } from "@/ui/components/common/Search";
 import * as categoriesService from "@/services/categories";
-import { CartLink } from "@/ui/molecules/CartLink";
+import { CartLink } from "@/ui/components/cart/CartLink";
 
 const BASE_LINKS = [
   { label: "Home", href: "/", exact: true },

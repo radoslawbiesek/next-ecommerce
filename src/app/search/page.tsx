@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { ProductList } from "@/ui/organisms/ProductList";
+import { ProductList } from "@/ui/components/products/ProductList";
 import * as productsService from "@/services/products";
 
 type SearchPageProps = {

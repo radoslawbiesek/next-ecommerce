@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { Navbar } from "@/ui/organisms/Navbar";
-import { Footer } from "@/ui/organisms/Footer";
+import { Navbar } from "@/ui/components/common/Navbar";
+import { Footer } from "@/ui/components/common/Footer";
 
 export const metadata: Metadata = {
   title: "Next Ecommerce",

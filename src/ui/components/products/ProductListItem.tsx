@@ -1,8 +1,8 @@
 import Link from "next/link";
 import clsx from "clsx";
 
-import { ProductListItemDescription } from "@/ui/elements/ProductListItemDescription";
-import { ProductListItemCoverImage } from "@/ui/atoms/ProductListItemCoverImage";
+import { ProductListItemDescription } from "@/ui/components/products/ProductListItemDescription";
+import { ProductListItemCoverImage } from "@/ui/components/products/ProductListItemCoverImage";
 import { type ProductListItemFragment } from "@/gql/graphql";
 
 type ProductListItemProps = ProductListItemFragment & { className?: string };
