@@ -2,7 +2,7 @@ import NextLink from "next/link";
 import { cookies } from "next/headers";
 import clsx from "clsx";
 
-import { CartIcon } from "@/ui/atoms/CartIcon";
+import { CartIcon } from "@/ui/elements/icons/CartIcon";
 import * as cartService from "@/services/cart";
 
 async function getCount(cartId?: number) {

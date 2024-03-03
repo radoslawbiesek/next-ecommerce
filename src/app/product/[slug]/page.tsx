@@ -6,9 +6,10 @@ import { notFound } from "next/navigation";
 import * as productsService from "@/services/products";
 import * as cartActions from "@/actions/cart";
 import { formatPrice } from "@/helpers/formatPrice";
-import { CheckIcon } from "@/ui/atoms/CheckIcon";
+import { CheckIcon } from "@/ui/elements/icons/CheckIcon";
 import { RecommendedProducts } from "@/ui/organisms/RecommendedProducts";
-import { AddToCartButton } from "@/ui/molecules/AddToCartButton";
+import { SubmitButton } from "@/ui/elements/form/SubmitButton";
+import { ReviewsWrapper } from "@/ui/components/reviews/ReviewsWrapper";
 
 type ProductPageProps = {
   params: { slug: string };
@@ -16,6 +17,10 @@ type ProductPageProps = {
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const product = await productsService.getBySlug(params.slug);
+
+  if (!product) {
+    return notFound();
+  }
 
   return {
     title: `${product.name} - Shop`,
@@ -90,12 +95,15 @@ export default async function Product({ params }: ProductPageProps) {
                 />
               </label>
             </div>
-            <AddToCartButton />
+            <SubmitButton>Add to cart</SubmitButton>
           </form>
         </div>
       </article>
       <Suspense>
         <RecommendedProducts productId={product.id} />
+      </Suspense>
+      <Suspense>
+        <ReviewsWrapper product={product} className="mb-8 mt-24" />
       </Suspense>
     </section>
   );

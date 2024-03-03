@@ -98,10 +98,15 @@ export type Meta = {
 };
 
 export type Mutation = {
+  addReview: Review;
   cartAddItem: Cart;
   cartFindOrCreate: Cart;
   cartRemoveItem: CartItem;
   cartUpdateItemQuantity: CartItem;
+};
+
+export type MutationAddReviewArgs = {
+  input: ReviewInput;
 };
 
 export type MutationCartAddItemArgs = {
@@ -131,7 +136,7 @@ export type Product = {
   inStock: Scalars["Int"]["output"];
   name: Scalars["String"]["output"];
   price: Scalars["Int"]["output"];
-  rating: Scalars["Int"]["output"];
+  rating?: Maybe<Scalars["Float"]["output"]>;
   slug: Scalars["String"]["output"];
   variants: Array<Scalars["String"]["output"]>;
 };
@@ -150,6 +155,7 @@ export type Query = {
   product?: Maybe<Product>;
   products?: Maybe<Products>;
   recommended_products?: Maybe<Products>;
+  reviews: Array<Review>;
 };
 
 export type QueryCartArgs = {
@@ -179,6 +185,30 @@ export type QueryRecommended_ProductsArgs = {
   take?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
+export type QueryReviewsArgs = {
+  productId: Scalars["Int"]["input"];
+};
+
+export type Review = {
+  content: Scalars["String"]["output"];
+  createdAt: Scalars["String"]["output"];
+  email: Scalars["String"]["output"];
+  headline: Scalars["String"]["output"];
+  id: Scalars["Int"]["output"];
+  name: Scalars["String"]["output"];
+  productId: Scalars["Int"]["output"];
+  rating: Scalars["Int"]["output"];
+};
+
+export type ReviewInput = {
+  content: Scalars["String"]["input"];
+  email: Scalars["String"]["input"];
+  headline: Scalars["String"]["input"];
+  name: Scalars["String"]["input"];
+  productId: Scalars["Int"]["input"];
+  rating: Scalars["Int"]["input"];
+};
+
 export type CartFindOrCreateMutationVariables = Exact<{
   id?: InputMaybe<Scalars["Int"]["input"]>;
   input?: InputMaybe<CardItemInput>;
@@ -198,7 +228,7 @@ export type CartFindOrCreateMutation = {
         name: string;
         slug: string;
         price: number;
-        rating: number;
+        rating?: number | null;
         categories: Array<{ id: number; name: string; slug: string }>;
         images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
       };
@@ -219,7 +249,7 @@ export type CartFragment = {
       name: string;
       slug: string;
       price: number;
-      rating: number;
+      rating?: number | null;
       categories: Array<{ id: number; name: string; slug: string }>;
       images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
     };
@@ -244,7 +274,7 @@ export type CartGetByIdQuery = {
         name: string;
         slug: string;
         price: number;
-        rating: number;
+        rating?: number | null;
         categories: Array<{ id: number; name: string; slug: string }>;
         images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
       };
@@ -263,7 +293,7 @@ export type CartItemFragment = {
     name: string;
     slug: string;
     price: number;
-    rating: number;
+    rating?: number | null;
     categories: Array<{ id: number; name: string; slug: string }>;
     images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
   };
@@ -285,7 +315,7 @@ export type CartRemoveItemMutation = {
       name: string;
       slug: string;
       price: number;
-      rating: number;
+      rating?: number | null;
       categories: Array<{ id: number; name: string; slug: string }>;
       images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
     };
@@ -309,7 +339,7 @@ export type CartUpdateItemQuantityMutation = {
       name: string;
       slug: string;
       price: number;
-      rating: number;
+      rating?: number | null;
       categories: Array<{ id: number; name: string; slug: string }>;
       images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
     };
@@ -337,7 +367,7 @@ export type CategoryGetBySlugQuery = {
         name: string;
         slug: string;
         price: number;
-        rating: number;
+        rating?: number | null;
         categories: Array<{ id: number; name: string; slug: string }>;
         images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
       }>;
@@ -363,7 +393,7 @@ export type CollectionGetBySlugQuery = {
         name: string;
         slug: string;
         price: number;
-        rating: number;
+        rating?: number | null;
         categories: Array<{ id: number; name: string; slug: string }>;
         images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
       }>;
@@ -393,7 +423,7 @@ export type ProductGetBySlugQuery = {
     name: string;
     slug: string;
     price: number;
-    rating: number;
+    rating?: number | null;
     categories: Array<{ id: number; name: string; slug: string }>;
     images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
   } | null;
@@ -404,7 +434,7 @@ export type ProductListItemFragment = {
   name: string;
   slug: string;
   price: number;
-  rating: number;
+  rating?: number | null;
   categories: Array<{ id: number; name: string; slug: string }>;
   images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
 };
@@ -422,7 +452,7 @@ export type ProductsGetListQuery = {
       name: string;
       slug: string;
       price: number;
-      rating: number;
+      rating?: number | null;
       categories: Array<{ id: number; name: string; slug: string }>;
       images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
     }>;
@@ -442,11 +472,53 @@ export type RecommendedProductsGetListQuery = {
       name: string;
       slug: string;
       price: number;
-      rating: number;
+      rating?: number | null;
       categories: Array<{ id: number; name: string; slug: string }>;
       images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
     }>;
   } | null;
+};
+
+export type ReviewCreateMutationVariables = Exact<{
+  input: ReviewInput;
+}>;
+
+export type ReviewCreateMutation = {
+  addReview: {
+    id: number;
+    headline: string;
+    content: string;
+    rating: number;
+    name: string;
+    email: string;
+    createdAt: string;
+  };
+};
+
+export type ReviewFragment = {
+  id: number;
+  headline: string;
+  content: string;
+  rating: number;
+  name: string;
+  email: string;
+  createdAt: string;
+};
+
+export type ReviewsGetListQueryVariables = Exact<{
+  productId: Scalars["Int"]["input"];
+}>;
+
+export type ReviewsGetListQuery = {
+  reviews: Array<{
+    id: number;
+    headline: string;
+    content: string;
+    rating: number;
+    name: string;
+    email: string;
+    createdAt: string;
+  }>;
 };
 
 export class TypedDocumentString<TResult, TVariables>
@@ -559,6 +631,20 @@ fragment ProductListItem on Product {
 }`,
   { fragmentName: "Cart" },
 ) as unknown as TypedDocumentString<CartFragment, unknown>;
+export const ReviewFragmentDoc = new TypedDocumentString(
+  `
+    fragment Review on Review {
+  id
+  headline
+  content
+  rating
+  name
+  email
+  createdAt
+}
+    `,
+  { fragmentName: "Review" },
+) as unknown as TypedDocumentString<ReviewFragment, unknown>;
 export const CartFindOrCreateDocument = new TypedDocumentString(`
     mutation CartFindOrCreate($id: Int, $input: CardItemInput) {
   cartFindOrCreate(id: $id, input: $input) {
@@ -880,3 +966,33 @@ export const RecommendedProductsGetListDocument = new TypedDocumentString(`
     height
   }
 }`) as unknown as TypedDocumentString<RecommendedProductsGetListQuery, RecommendedProductsGetListQueryVariables>;
+export const ReviewCreateDocument = new TypedDocumentString(`
+    mutation ReviewCreate($input: ReviewInput!) {
+  addReview(input: $input) {
+    ...Review
+  }
+}
+    fragment Review on Review {
+  id
+  headline
+  content
+  rating
+  name
+  email
+  createdAt
+}`) as unknown as TypedDocumentString<ReviewCreateMutation, ReviewCreateMutationVariables>;
+export const ReviewsGetListDocument = new TypedDocumentString(`
+    query ReviewsGetList($productId: Int!) {
+  reviews(productId: $productId) {
+    ...Review
+  }
+}
+    fragment Review on Review {
+  id
+  headline
+  content
+  rating
+  name
+  email
+  createdAt
+}`) as unknown as TypedDocumentString<ReviewsGetListQuery, ReviewsGetListQueryVariables>;

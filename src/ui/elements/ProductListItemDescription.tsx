@@ -1,7 +1,6 @@
-import clsx from "clsx";
-
 import { type ProductListItemFragment } from "@/gql/graphql";
 import { formatPrice } from "@/helpers/formatPrice";
+import { Rating } from "@/ui/elements/Rating";
 
 type ProductListItemDescriptionProps = Pick<ProductListItemFragment, "name" | "price" | "categories" | "rating">;
 
@@ -20,16 +19,7 @@ export function ProductListItemDescription({ name, price, categories, rating }: 
             </p>
           ))}
         </div>
-        <div className="rating rating-sm">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <input
-              type="radio"
-              key={index}
-              className={clsx("mask mask-star-2", index + 1 > rating ? "bg-slate-300" : "")}
-              disabled
-            />
-          ))}
-        </div>
+        {rating && <Rating value={rating} />}
       </div>
     </div>
   );

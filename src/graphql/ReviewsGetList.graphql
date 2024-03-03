@@ -1,0 +1,5 @@
+query ReviewsGetList($productId: Int!) {
+  reviews(productId: $productId) {
+    ...Review
+  }
+}

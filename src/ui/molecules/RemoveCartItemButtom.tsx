@@ -2,7 +2,7 @@
 
 import { useFormStatus } from "react-dom";
 
-import { TrashIcon } from "@/ui/atoms/TrashIcon";
+import { TrashIcon } from "@/ui/elements/icons/TrashIcon";
 
 import * as cartActions from "@/actions/cart";
 

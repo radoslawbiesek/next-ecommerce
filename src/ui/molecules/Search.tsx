@@ -2,7 +2,8 @@
 
 import { type Route } from "next";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { GlassIcon } from "../atoms/GlassIcon";
+
+import { GlassIcon } from "@/ui/elements/icons/GlassIcon";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function debounce<F extends (...args: any[]) => void>(func: F, delay: number): (...args: Parameters<F>) => void {

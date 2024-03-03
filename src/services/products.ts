@@ -23,9 +23,6 @@ export async function getBySlug(slug: string) {
   const response = await executeGraphQL({ query: ProductGetBySlugDocument, variables: { slug } });
 
   const { product } = response;
-  if (!product) {
-    throw new Error(`Product ${slug} not found`);
-  }
 
   return product;
 }

@@ -38,6 +38,12 @@ const documents = {
     types.ProductsGetListDocument,
   "query RecommendedProductsGetList($productId: Int!, $take: Int) {\n  recommended_products(productId: $productId, take: $take) {\n    data {\n      ...ProductListItem\n    }\n  }\n}":
     types.RecommendedProductsGetListDocument,
+  "mutation ReviewCreate($input: ReviewInput!) {\n  addReview(input: $input) {\n    ...Review\n  }\n}":
+    types.ReviewCreateDocument,
+  "fragment Review on Review {\n  id\n  headline\n  content\n  rating\n  name\n  email\n  createdAt\n}":
+    types.ReviewFragmentDoc,
+  "query ReviewsGetList($productId: Int!) {\n  reviews(productId: $productId) {\n    ...Review\n  }\n}":
+    types.ReviewsGetListDocument,
 };
 
 /**
@@ -124,6 +130,24 @@ export function graphql(
 export function graphql(
   source: "query RecommendedProductsGetList($productId: Int!, $take: Int) {\n  recommended_products(productId: $productId, take: $take) {\n    data {\n      ...ProductListItem\n    }\n  }\n}",
 ): typeof import("./graphql").RecommendedProductsGetListDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "mutation ReviewCreate($input: ReviewInput!) {\n  addReview(input: $input) {\n    ...Review\n  }\n}",
+): typeof import("./graphql").ReviewCreateDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "fragment Review on Review {\n  id\n  headline\n  content\n  rating\n  name\n  email\n  createdAt\n}",
+): typeof import("./graphql").ReviewFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "query ReviewsGetList($productId: Int!) {\n  reviews(productId: $productId) {\n    ...Review\n  }\n}",
+): typeof import("./graphql").ReviewsGetListDocument;
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
