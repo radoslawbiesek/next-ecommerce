@@ -7,11 +7,14 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 function checkIsActive(pathname: string, href: string, exact: boolean) {
+  const hrefWithoutQuery = href.split("?")[0]!;
+  const pathnameWithoutQuery = pathname.split("?")[0]!;
+
   if (exact) {
-    return pathname === href;
+    return pathnameWithoutQuery === hrefWithoutQuery;
   }
 
-  return pathname.startsWith(href);
+  return pathnameWithoutQuery.startsWith(hrefWithoutQuery);
 }
 
 type ActiveLinkProps = {

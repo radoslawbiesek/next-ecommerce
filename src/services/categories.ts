@@ -9,7 +9,11 @@ export async function getAll() {
 
 export async function getBySlug(
   slug: string,
-  { productsTake, productsSkip }: { productsTake?: number; productsSkip?: number } = {},
+  {
+    productsTake,
+    productsSkip,
+    productsOrdering,
+  }: { productsTake?: number; productsSkip?: number; productsOrdering?: string } = {},
 ) {
   const response = await executeGraphQL({
     query: CategoryGetBySlugDocument,
@@ -17,6 +21,7 @@ export async function getBySlug(
       slug,
       products_take: productsTake,
       products_skip: productsSkip,
+      products_ordering: productsOrdering,
     },
   });
 

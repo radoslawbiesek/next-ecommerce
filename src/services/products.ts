@@ -1,8 +1,21 @@
 import { executeGraphQL } from "@/services/graphql";
 import { ProductGetBySlugDocument, ProductsGetListDocument, RecommendedProductsGetListDocument } from "@/gql/graphql";
 
-export async function getAll({ take, skip, search }: { take?: number; skip?: number; search?: string }) {
-  const response = await executeGraphQL({ query: ProductsGetListDocument, variables: { take, skip, search } });
+export async function getAll({
+  take,
+  skip,
+  search,
+  ordering,
+}: {
+  take?: number;
+  skip?: number;
+  search?: string;
+  ordering?: string;
+}) {
+  const response = await executeGraphQL({
+    query: ProductsGetListDocument,
+    variables: { take, skip, search, ordering },
+  });
 
   return { data: response.products?.data ?? [], total: response.products?.meta?.total ?? 0 };
 }

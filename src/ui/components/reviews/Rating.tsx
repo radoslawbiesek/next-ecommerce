@@ -10,7 +10,7 @@ type RatingProps = {
 export function Rating({ value, className }: RatingProps) {
   return (
     <div className={clsx(className, "flex items-center p-1")}>
-      <div className="mr-2 mt-0.5 text-xs font-semibold">
+      <div className="mr-2 mt-0.5 text-xs font-semibold" data-testid="product-rating">
         {Number.isInteger(value) ? value : value.toFixed(1)} / {MAX_RATING}
       </div>
       <div className={"rating rating-sm"}>

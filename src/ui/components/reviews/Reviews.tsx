@@ -26,8 +26,6 @@ function validate(formData: FormData): ReviewInput | undefined {
     email: formData.get("email"),
   };
 
-  console.log(raw);
-
   if (
     "productId" in raw &&
     typeof raw.productId === "string" &&

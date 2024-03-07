@@ -49,6 +49,7 @@ export type Category = {
 };
 
 export type CategoryProductsArgs = {
+  ordering?: InputMaybe<Scalars["String"]["input"]>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
 };
@@ -69,6 +70,7 @@ export type Collection = {
 };
 
 export type CollectionProductsArgs = {
+  ordering?: InputMaybe<Scalars["String"]["input"]>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
 };
@@ -175,6 +177,7 @@ export type QueryProductArgs = {
 };
 
 export type QueryProductsArgs = {
+  ordering?: InputMaybe<Scalars["String"]["input"]>;
   search?: InputMaybe<Scalars["String"]["input"]>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
@@ -354,6 +357,7 @@ export type CategoryGetBySlugQueryVariables = Exact<{
   slug: Scalars["String"]["input"];
   products_take?: InputMaybe<Scalars["Int"]["input"]>;
   products_skip?: InputMaybe<Scalars["Int"]["input"]>;
+  products_ordering?: InputMaybe<Scalars["String"]["input"]>;
 }>;
 
 export type CategoryGetBySlugQuery = {
@@ -380,6 +384,7 @@ export type CollectionGetBySlugQueryVariables = Exact<{
   slug: Scalars["String"]["input"];
   products_take?: InputMaybe<Scalars["Int"]["input"]>;
   products_skip?: InputMaybe<Scalars["Int"]["input"]>;
+  products_ordering?: InputMaybe<Scalars["String"]["input"]>;
 }>;
 
 export type CollectionGetBySlugQuery = {
@@ -443,6 +448,7 @@ export type ProductsGetListQueryVariables = Exact<{
   search?: InputMaybe<Scalars["String"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
+  ordering?: InputMaybe<Scalars["String"]["input"]>;
 }>;
 
 export type ProductsGetListQuery = {
@@ -804,12 +810,16 @@ export const CategoriesGetListDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<CategoriesGetListQuery, CategoriesGetListQueryVariables>;
 export const CategoryGetBySlugDocument = new TypedDocumentString(`
-    query CategoryGetBySlug($slug: String!, $products_take: Int, $products_skip: Int) {
+    query CategoryGetBySlug($slug: String!, $products_take: Int, $products_skip: Int, $products_ordering: String) {
   category(slug: $slug) {
     name
     description
     id
-    products(take: $products_take, skip: $products_skip) {
+    products(
+      take: $products_take
+      skip: $products_skip
+      ordering: $products_ordering
+    ) {
       data {
         ...ProductListItem
       }
@@ -838,12 +848,16 @@ export const CategoryGetBySlugDocument = new TypedDocumentString(`
   }
 }`) as unknown as TypedDocumentString<CategoryGetBySlugQuery, CategoryGetBySlugQueryVariables>;
 export const CollectionGetBySlugDocument = new TypedDocumentString(`
-    query CollectionGetBySlug($slug: String!, $products_take: Int, $products_skip: Int) {
+    query CollectionGetBySlug($slug: String!, $products_take: Int, $products_skip: Int, $products_ordering: String) {
   collection(slug: $slug) {
     name
     description
     id
-    products(take: $products_take, skip: $products_skip) {
+    products(
+      take: $products_take
+      skip: $products_skip
+      ordering: $products_ordering
+    ) {
       data {
         ...ProductListItem
       }
@@ -912,8 +926,8 @@ export const ProductGetBySlugDocument = new TypedDocumentString(`
   }
 }`) as unknown as TypedDocumentString<ProductGetBySlugQuery, ProductGetBySlugQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
-    query ProductsGetList($search: String, $take: Int, $skip: Int) {
-  products(search: $search, take: $take, skip: $skip) {
+    query ProductsGetList($search: String, $take: Int, $skip: Int, $ordering: String) {
+  products(search: $search, take: $take, skip: $skip, ordering: $ordering) {
     data {
       ...ProductListItem
     }

@@ -9,7 +9,7 @@ type ReviewFormProps = { productId: number; className?: string; action: (formDat
 
 export function ReviewForm({ productId, className, action }: ReviewFormProps) {
   return (
-    <form className={clsx("flex flex-col gap-3", className)} action={action} data-test-id="add-review-form">
+    <form className={clsx("flex flex-col gap-3", className)} action={action} data-testid="add-review-form">
       <input type="hidden" name="productId" value={productId} required />
       <Input label="Review title" name="headline" required />
       <Textarea label="Review content" name="content" required />

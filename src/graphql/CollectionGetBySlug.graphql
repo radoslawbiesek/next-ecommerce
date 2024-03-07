@@ -1,9 +1,9 @@
-query CollectionGetBySlug($slug: String!, $products_take: Int, $products_skip: Int) {
+query CollectionGetBySlug($slug: String!, $products_take: Int, $products_skip: Int, $products_ordering: String) {
   collection(slug: $slug) {
     name
     description
     id
-    products(take: $products_take, skip: $products_skip) {
+    products(take: $products_take, skip: $products_skip, ordering: $products_ordering) {
       data {
         ...ProductListItem
       }

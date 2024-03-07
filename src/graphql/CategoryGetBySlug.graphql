@@ -1,9 +1,9 @@
-query CategoryGetBySlug($slug: String!, $products_take: Int, $products_skip: Int) {
+query CategoryGetBySlug($slug: String!, $products_take: Int, $products_skip: Int, $products_ordering: String) {
   category(slug: $slug) {
     name
     description
     id
-    products(take: $products_take, skip: $products_skip) {
+    products(take: $products_take, skip: $products_skip, ordering: $products_ordering) {
       data {
         ...ProductListItem
       }
