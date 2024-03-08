@@ -1,11 +1,9 @@
 import { cookies } from "next/headers";
-import NextImage from "next/image";
 import NextLink from "next/link";
 
 import * as cartService from "@/services/cart";
 import { formatPrice } from "@/helpers/formatPrice";
-import { ChangeCartItemQuantity } from "@/ui/components/cart/ChangeCartItemQuantity";
-import { RemoveCartItemButtom } from "@/ui/components/cart/RemoveCartItemButtom";
+import { CartListItem } from "@/ui/components/cart/CartListItem";
 
 export default async function CartPage() {
   const cartId = cookies().get("cartId")?.value;
@@ -27,36 +25,11 @@ export default async function CartPage() {
       <h1 className="text-3xl font-bold">Your shopping cart</h1>
       <div className="flex items-start gap-8">
         <ul className="mt-8 flex flex-1 flex-col gap-2">
-          {cart.items.map(({ id, product, variant, quantity, productId }, index) => (
-            <li key={`${productId}-${variant}`}>
+          {cart.items.map((item, index) => (
+            <>
               {index !== 0 && <div className="divider" />}
-              <div className="card lg:card-side">
-                {product.images[0] && (
-                  <figure>
-                    <NextImage
-                      src={product.images[0].url}
-                      alt={product.images[0].alt || product.name}
-                      width={120}
-                      height={120}
-                    />
-                  </figure>
-                )}
-                <div className="card-body flex flex-row items-center gap-8">
-                  <div className="flex-1">
-                    <NextLink href={`/product/${product.slug}`}>
-                      <h2 className="card-title">{product.name}</h2>
-                      <p>{variant}</p>
-                    </NextLink>
-                  </div>
-                  <ChangeCartItemQuantity cartItemId={id} quantity={quantity} />
-                  <div className="flex flex-col items-center">
-                    <span className="text-xl font-semibold">{formatPrice((quantity * product.price) / 100)}</span>
-                    <span className="text-sm italic">{formatPrice(product.price / 100)} per item</span>
-                  </div>
-                  <RemoveCartItemButtom cartItemId={id} />
-                </div>
-              </div>
-            </li>
+              <CartListItem key={item.id} {...item} />
+            </>
           ))}
         </ul>
 
