@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import clsx from "clsx";
 
 import * as cartService from "@/services/cart";
@@ -6,11 +5,11 @@ import { Overlay } from "@/ui/components/cart/Overlay";
 import { CartListItemCompact } from "@/ui/components/cart/CartListItemCompact";
 import { formatPrice } from "@/helpers/formatPrice";
 import { ContinueShoppingButton } from "@/ui/components/cart/ContinueShoppingButton";
+import { calculateCartTotal } from "@/helpers/calculateCartTotal";
 
 export default async function ModalCart() {
-  const cartId = cookies().get("cartId")?.value;
-  const cart = cartId ? await cartService.getById(parseInt(cartId)) : null;
-  const total = cart?.items.reduce((acc, item) => (acc += item.quantity * item.product.price), 0) || 0;
+  const cart = await cartService.getFromCookies();
+  const total = calculateCartTotal(cart);
 
   return (
     <aside className="animation-fade-in fixed inset-0 z-20 backdrop-blur-sm">
@@ -33,11 +32,17 @@ export default async function ModalCart() {
             <span className="font-semibold">Total</span>
             <span className="text-lg font-bold">{formatPrice(total / 100)}</span>
           </div>
-          <button className="btn btn-primary" disabled={!cart?.items.length}>
+          <a
+            href="/cart/payment"
+            className={clsx("btn btn-primary", {
+              "pointer-events-none": !cart?.items.length,
+              "cursor-default": !cart?.items.length,
+            })}
+          >
             Checkout
-          </button>
+          </a>
           <div className="flex gap-2">
-            <a className="btn btn-outline flex-1" href="/cart">
+            <a className="btn btn-neutral flex-1" href="/cart">
               Go to cart
             </a>
             <ContinueShoppingButton />

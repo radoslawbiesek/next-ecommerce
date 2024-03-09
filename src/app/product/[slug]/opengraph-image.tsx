@@ -31,7 +31,7 @@ export default async function ProductOgImage({ params: { slug } }: ProductPagePr
             fontSize: 50,
             position: "absolute",
             left: "50%",
-            bottom: '10%',
+            bottom: "10%",
             transform: "translate(-50%, 0)",
             backgroundColor: "white",
           }}

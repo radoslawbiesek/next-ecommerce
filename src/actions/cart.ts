@@ -18,14 +18,14 @@ export async function addProduct(formData: FormData) {
 }
 
 async function getOrCreate(input?: { productId: number; quantity: number; variant: string }) {
-  const cartId = cookies().get("cartId")?.value;
+  const cartId = cookies().get(cartService.CART_ID_COOKIE)?.value;
   const cart = await cartService.findOrCreate(cartId ? parseInt(cartId) : undefined, input);
 
   if (!cart) {
     throw new Error("Could not create cart");
   }
 
-  cookies().set("cartId", cart.id.toString());
+  cookies().set(cartService.CART_ID_COOKIE, cart.id.toString());
 
   return cart;
 }

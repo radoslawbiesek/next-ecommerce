@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 import { executeGraphQL } from "./graphql";
 import {
   CartFindOrCreateDocument,
@@ -5,6 +7,17 @@ import {
   CartRemoveItemDocument,
   CartUpdateItemQuantityDocument,
 } from "@/gql/graphql";
+
+export const CART_ID_COOKIE = "cartId";
+
+export async function getFromCookies() {
+  const cartId = cookies().get(CART_ID_COOKIE)?.value;
+  if (!cartId) {
+    return null;
+  }
+
+  return getById(parseInt(cartId));
+}
 
 export async function getById(id: number) {
   const response = await executeGraphQL({

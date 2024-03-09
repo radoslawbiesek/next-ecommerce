@@ -1,24 +1,16 @@
-import { cookies } from "next/headers";
 import NextLink from "next/link";
 
 import * as cartService from "@/services/cart";
 import { formatPrice } from "@/helpers/formatPrice";
 import { CartListItem } from "@/ui/components/cart/CartListItem";
+import { calculateCartTotal } from "@/helpers/calculateCartTotal";
 
 export default async function CartPage() {
-  const cartId = cookies().get("cartId")?.value;
-
-  if (!cartId) {
-    return <p>Your cart is empty</p>;
-  }
-
-  const cart = await cartService.getById(parseInt(cartId));
-
+  const cart = await cartService.getFromCookies();
   if (!cart?.items.length) {
     return <h1 className="my-8 text-center text-3xl font-bold">Your cart is empty</h1>;
   }
-
-  const total = cart.items.reduce((acc, item) => (acc += item.quantity * item.product.price), 0);
+  const total = calculateCartTotal(cart);
 
   return (
     <>
@@ -49,7 +41,9 @@ export default async function CartPage() {
               <span className="font-semibold">Total</span>
               <span className="text-lg font-bold">{formatPrice(total / 100)}</span>
             </div>
-            <button className="btn btn-primary mt-8 w-full">Checkout</button>
+            <NextLink href="/cart/payment" className="btn btn-primary mt-8 w-full">
+              Checkout
+            </NextLink>
             <NextLink href="/products" className="btn btn-outline mt-2">
               Continue shopping
             </NextLink>
