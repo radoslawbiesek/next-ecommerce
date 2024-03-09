@@ -15,6 +15,7 @@ export async function getAll({
   const response = await executeGraphQL({
     query: ProductsGetListDocument,
     variables: { take, skip, search, ordering },
+    next: { tags: ["products"] },
   });
 
   return { data: response.products?.data ?? [], total: response.products?.meta?.total ?? 0 };
@@ -33,7 +34,11 @@ export async function getRecommendedProducts(productId: number, { take }: { take
 }
 
 export async function getBySlug(slug: string) {
-  const response = await executeGraphQL({ query: ProductGetBySlugDocument, variables: { slug } });
+  const response = await executeGraphQL({
+    query: ProductGetBySlugDocument,
+    variables: { slug },
+    next: { tags: [`product/${slug}`] },
+  });
 
   const { product } = response;
 

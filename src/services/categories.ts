@@ -23,6 +23,9 @@ export async function getBySlug(
       products_skip: productsSkip,
       products_ordering: productsOrdering,
     },
+    next: {
+      tags: [`category/${slug}`],
+    },
   });
 
   return response.category;

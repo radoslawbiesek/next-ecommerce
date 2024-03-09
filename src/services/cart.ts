@@ -7,7 +7,11 @@ import {
 } from "@/gql/graphql";
 
 export async function getById(id: number) {
-  const response = await executeGraphQL({ query: CartGetByIdDocument, variables: { id }, next: { tags: ["cart"] } });
+  const response = await executeGraphQL({
+    query: CartGetByIdDocument,
+    variables: { id },
+    next: { tags: ["cart", "products"] },
+  });
 
   return response.cart;
 }

@@ -2,7 +2,6 @@ import { type Route } from "next";
 
 import { ProductList } from "@/ui/components/products/ProductList";
 import * as productsService from "@/services/products";
-import { range } from "@/helpers/range";
 import { Pagination } from "@/ui/components/common/Pagination";
 import { parsePage } from "@/helpers/parsePage";
 import { PRODUCTS_PER_PAGE } from "@/contants";
@@ -11,10 +10,6 @@ import { OrderingSelect } from "@/ui/components/common/OrderingSelect";
 export const metadata = {
   title: "Products - Shop",
 };
-
-export function generateStaticParams() {
-  return range(1, 3).map((pageNumber) => ({ pageNumber: pageNumber.toString() }));
-}
 
 export default async function ProductsPage({
   params,
