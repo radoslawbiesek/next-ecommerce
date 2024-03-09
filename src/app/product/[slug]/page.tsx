@@ -11,7 +11,7 @@ import { RecommendedProducts } from "@/ui/components/products/RecommendedProduct
 import { SubmitButton } from "@/ui/elements/form/SubmitButton";
 import { ReviewsWrapper } from "@/ui/components/reviews/ReviewsWrapper";
 
-type ProductPageProps = {
+export type ProductPageProps = {
   params: { slug: string };
 };
 
@@ -25,13 +25,6 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   return {
     title: `${product.name} - Shop`,
     description: product.description,
-    openGraph: {
-      title: `${product.name} - Shop`,
-      description: product.description,
-      ...(product.images.length
-        ? { images: product.images.map((image) => ({ url: image.url, ...(image.alt ? { alt: image.alt } : {}) })) }
-        : {}),
-    },
   };
 }
 
@@ -74,8 +67,8 @@ export default async function Product({ params }: ProductPageProps) {
                   <span className="label-text">Variant</span>
                 </div>
                 <select className="select select-bordered" name="variant" defaultValue={product.variants[0]} required>
-                  {product.variants.map((option) => (
-                    <option key={option} value={option}>
+                  {product.variants.map((option, index) => (
+                    <option key={`${option}-${index}`} value={option}>
                       {option}
                     </option>
                   ))}
