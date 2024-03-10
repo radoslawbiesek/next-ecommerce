@@ -30,6 +30,8 @@ const documents = {
     types.CollectionGetBySlugDocument,
   "query CollectionsGetList {\n  collections {\n    data {\n      name\n      id\n      slug\n      description\n      imageUrl\n    }\n  }\n}":
     types.CollectionsGetListDocument,
+  "mutation OrderUpdateStatus($id: Int, $status: String) {\n  orderUpdateStatus(id: $id, status: $status) {\n    status\n    id\n  }\n}":
+    types.OrderUpdateStatusDocument,
   "query ProductGetBySlug($slug: String!) {\n  product(slug: $slug) {\n    ...ProductListItem\n    description\n    variants\n    inStock\n  }\n}":
     types.ProductGetBySlugDocument,
   "fragment ProductListItem on Product {\n  id\n  name\n  slug\n  price\n  rating\n  categories {\n    id\n    name\n    slug\n  }\n  images {\n    url\n    alt\n    width\n    height\n  }\n}":
@@ -106,6 +108,12 @@ export function graphql(
 export function graphql(
   source: "query CollectionsGetList {\n  collections {\n    data {\n      name\n      id\n      slug\n      description\n      imageUrl\n    }\n  }\n}",
 ): typeof import("./graphql").CollectionsGetListDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "mutation OrderUpdateStatus($id: Int, $status: String) {\n  orderUpdateStatus(id: $id, status: $status) {\n    status\n    id\n  }\n}",
+): typeof import("./graphql").OrderUpdateStatusDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

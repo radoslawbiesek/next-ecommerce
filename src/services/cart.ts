@@ -6,6 +6,7 @@ import {
   CartGetByIdDocument,
   CartRemoveItemDocument,
   CartUpdateItemQuantityDocument,
+  OrderUpdateStatusDocument,
 } from "@/gql/graphql";
 
 export const CART_ID_COOKIE = "cartId";
@@ -54,4 +55,10 @@ export async function removeItem(cartItemId: number) {
   const { cartRemoveItem } = await executeGraphQL({ query: CartRemoveItemDocument, variables: { cartItemId } });
 
   return cartRemoveItem;
+}
+
+export async function updateOrderStatus(id: number, status: string) {
+  const { orderUpdateStatus } = await executeGraphQL({ query: OrderUpdateStatusDocument, variables: { id, status } });
+
+  return orderUpdateStatus;
 }
