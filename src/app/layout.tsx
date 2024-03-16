@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 
+import "./globals.css";
 import { Navbar } from "@/ui/components/common/Navbar";
 import { Footer } from "@/ui/components/common/Footer";
 
@@ -17,13 +18,15 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="light">
-      <body>
-        <Navbar />
-        <main className="container mx-auto p-8">{children}</main>
-        <Footer />
-        {modal}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" data-theme="light">
+        <body>
+          <Navbar />
+          <main className="container mx-auto p-8">{children}</main>
+          <Footer />
+          {modal}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

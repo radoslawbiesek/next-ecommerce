@@ -11,6 +11,7 @@ const nextConfig = {
     // typedRoutes: true,
     mdxRs: true,
   },
+  output: "standalone",
   redirects() {
     return [
       {

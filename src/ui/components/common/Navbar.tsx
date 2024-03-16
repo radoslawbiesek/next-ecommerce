@@ -2,7 +2,8 @@ import "server-only";
 
 import { Suspense } from "react";
 import { type Route } from "next";
-import Link from "next/link";
+import NextLink from "next/link";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 import { ActiveLink } from "@/ui/components/common/ActiveLink";
 import { Search } from "@/ui/components/common/Search";
@@ -27,9 +28,9 @@ export async function Navbar() {
   return (
     <nav className="navbar bg-base-200 px-8 py-0">
       <div className="navbar-start gap-2">
-        <Link href="/" className="text-xl">
+        <NextLink href="/" className="text-xl">
           Shop
-        </Link>
+        </NextLink>
         <ul className="menu menu-horizontal px-4 py-0">
           {allLinks.map((link) => (
             <li key={link.href}>
@@ -45,11 +46,17 @@ export async function Navbar() {
           ))}
         </ul>
       </div>
-      <div className="navbar-end gap-4">
+      <div className="navbar-end gap-6">
         <Suspense>
           <Search />
         </Suspense>
         <CartLink />
+        <SignedIn>
+          <UserButton afterSignOutUrl="/" userProfileMode="navigation" />
+        </SignedIn>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
       </div>
     </nav>
   );
