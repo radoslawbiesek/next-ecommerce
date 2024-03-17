@@ -26,8 +26,8 @@ export async function Navbar() {
   ] as const;
 
   return (
-    <nav className="navbar bg-base-200 px-8 py-0">
-      <div className="navbar-start gap-2">
+    <div className="navbar bg-base-200 px-8 py-0">
+      <nav className="navbar-start gap-2">
         <NextLink href="/" className="text-xl">
           Shop
         </NextLink>
@@ -45,7 +45,7 @@ export async function Navbar() {
             </li>
           ))}
         </ul>
-      </div>
+      </nav>
       <div className="navbar-end gap-6">
         <Suspense>
           <Search />
@@ -58,6 +58,6 @@ export async function Navbar() {
           <SignInButton />
         </SignedOut>
       </div>
-    </nav>
+    </div>
   );
 }

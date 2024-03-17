@@ -16,7 +16,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     return notFound();
   }
 
-  const { data, total } = await productsService.getAll({ search });
+  const { data, total } = await productsService.getAll({ search: search ? decodeURIComponent(search) : undefined });
 
   return (
     <section className="h-full">

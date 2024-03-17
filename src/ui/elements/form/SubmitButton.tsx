@@ -3,9 +3,9 @@
 import { useFormStatus } from "react-dom";
 import clsx from "clsx";
 
-type SubmitButtonProps = { children: React.ReactNode; className?: string };
+type SubmitButtonProps = { children: React.ReactNode; className?: string } & React.ComponentProps<"button">;
 
-export function SubmitButton({ children, className }: SubmitButtonProps) {
+export function SubmitButton({ children, className, ...rest }: SubmitButtonProps) {
   const status = useFormStatus();
 
   return (
@@ -13,7 +13,7 @@ export function SubmitButton({ children, className }: SubmitButtonProps) {
       type="submit"
       className={clsx("btn btn-neutral mt-2 w-full max-w-xs disabled:cursor-wait", className)}
       disabled={status.pending}
-      data-testid="add-to-cart-button"
+      {...rest}
     >
       {status.pending ? <span className="loading loading-spinner"></span> : null}
       {children}

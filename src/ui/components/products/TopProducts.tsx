@@ -17,7 +17,7 @@ export async function TopProducts({ className }: TopProductsProps) {
     <div>
       <h3 className="mb-4 mt-10 text-center text-2xl font-bold">Our top products</h3>
       <ul
-        data-testid="related-products"
+        data-testid="products-list"
         className={clsx("flex h-full flex-wrap items-center justify-center gap-8", className)}
       >
         {topProducts.map((product) => (

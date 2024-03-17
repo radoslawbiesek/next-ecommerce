@@ -8,7 +8,7 @@ export function ProductListItemDescription({ name, price, categories, rating }: 
   return (
     <div className="flex-column card-body">
       <div className="flex items-center justify-between font-bold">
-        <span>{name}</span>
+        <h3>{name}</h3>
         <span data-testid="product-price">{formatPrice(price / 100)}</span>
       </div>
       <div className="flex items-center justify-between">

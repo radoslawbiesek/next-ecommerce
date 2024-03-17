@@ -5,5 +5,5 @@ export const config = {
 };
 
 export default authMiddleware({
-  publicRoutes: ["/", "/search", "/cart", "/categories/(.*)", "/collections/(.*)", "/product/(.*)", "/products"],
+  publicRoutes: ["/", "/search", "/cart", "/categories/(.*)", "/collections/(.*)", "/product/(.*)", "/products/(.*)"],
 });

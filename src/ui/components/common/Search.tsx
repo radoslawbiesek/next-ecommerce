@@ -24,7 +24,7 @@ export function Search() {
 
   const handleSearch = debounce((search: string) => {
     const params = new URLSearchParams(searchParams);
-    params.set("query", search);
+    params.set("query", encodeURIComponent(search));
     const path = `/search?${params.toString()}` satisfies Route;
 
     if (pathname === "/search") {
