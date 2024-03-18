@@ -2,7 +2,7 @@ import { executeGraphQL } from "./graphql";
 import { CollectionGetBySlugDocument, CollectionsGetListDocument } from "@/gql/graphql";
 
 export async function getAll() {
-  const response = await executeGraphQL({ query: CollectionsGetListDocument });
+  const response = await executeGraphQL({ query: CollectionsGetListDocument, next: { tags: ["collections"] } });
 
   return response.collections?.data;
 }

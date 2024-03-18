@@ -106,6 +106,7 @@ export type Mutation = {
   cartRemoveItem: CartItem;
   cartUpdateItemQuantity: CartItem;
   orderUpdateStatus?: Maybe<Order>;
+  productCreate: Product;
 };
 
 export type MutationAddReviewArgs = {
@@ -136,6 +137,10 @@ export type MutationOrderUpdateStatusArgs = {
   status?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type MutationProductCreateArgs = {
+  input: ProductInput;
+};
+
 export type Order = {
   id: Scalars["Int"]["output"];
   items: Array<CartItem>;
@@ -153,6 +158,27 @@ export type Product = {
   rating?: Maybe<Scalars["Float"]["output"]>;
   slug: Scalars["String"]["output"];
   variants: Array<Scalars["String"]["output"]>;
+};
+
+export type ProductCreatedEvent = {
+  payload?: Maybe<ProductCreatedEventPayload>;
+  topic: ProductCreatedEventType;
+};
+
+export type ProductCreatedEventPayload = {
+  categories: Array<Scalars["Int"]["output"]>;
+  productId: Scalars["Int"]["output"];
+};
+
+export type ProductCreatedEventType = "PRODUCT_CREATED";
+
+export type ProductInput = {
+  categories: Array<Scalars["Int"]["input"]>;
+  description: Scalars["String"]["input"];
+  inStock: Scalars["Int"]["input"];
+  name: Scalars["String"]["input"];
+  price: Scalars["Int"]["input"];
+  variants: Array<Scalars["String"]["input"]>;
 };
 
 export type Products = {

@@ -2,7 +2,7 @@ import { executeGraphQL } from "./graphql";
 import { CategoriesGetListDocument, CategoryGetBySlugDocument } from "@/gql/graphql";
 
 export async function getAll() {
-  const response = await executeGraphQL({ query: CategoriesGetListDocument });
+  const response = await executeGraphQL({ query: CategoriesGetListDocument, next: { tags: ["categories"] } });
 
   return response.categories?.data;
 }
