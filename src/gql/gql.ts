@@ -28,7 +28,7 @@ const documents = {
     types.CategoryGetBySlugDocument,
   "query CollectionGetBySlug($slug: String!, $products_take: Int, $products_skip: Int, $products_ordering: String) {\n  collection(slug: $slug) {\n    name\n    description\n    id\n    products(\n      take: $products_take\n      skip: $products_skip\n      ordering: $products_ordering\n    ) {\n      data {\n        ...ProductListItem\n      }\n      meta {\n        total\n      }\n    }\n  }\n}":
     types.CollectionGetBySlugDocument,
-  "query CollectionsGetList {\n  collections {\n    data {\n      name\n      id\n      slug\n      description\n      imageUrl\n    }\n  }\n}":
+  "query CollectionsGetList {\n  collections {\n    data {\n      name\n      id\n      slug\n      description\n    }\n  }\n}":
     types.CollectionsGetListDocument,
   "mutation OrderUpdateStatus($id: Int, $status: String) {\n  orderUpdateStatus(id: $id, status: $status) {\n    status\n    id\n  }\n}":
     types.OrderUpdateStatusDocument,
@@ -106,7 +106,7 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "query CollectionsGetList {\n  collections {\n    data {\n      name\n      id\n      slug\n      description\n      imageUrl\n    }\n  }\n}",
+  source: "query CollectionsGetList {\n  collections {\n    data {\n      name\n      id\n      slug\n      description\n    }\n  }\n}",
 ): typeof import("./graphql").CollectionsGetListDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

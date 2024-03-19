@@ -78,7 +78,6 @@ export type CollectionProductsArgs = {
 export type CollectionListItem = {
   description?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["Int"]["output"];
-  imageUrl: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   slug: Scalars["String"]["output"];
 };
@@ -448,9 +447,7 @@ export type CollectionGetBySlugQuery = {
 export type CollectionsGetListQueryVariables = Exact<{ [key: string]: never }>;
 
 export type CollectionsGetListQuery = {
-  collections?: {
-    data: Array<{ name: string; id: number; slug: string; description?: string | null; imageUrl: string }>;
-  } | null;
+  collections?: { data: Array<{ name: string; id: number; slug: string; description?: string | null }> } | null;
 };
 
 export type OrderUpdateStatusMutationVariables = Exact<{
@@ -938,7 +935,6 @@ export const CollectionsGetListDocument = new TypedDocumentString(`
       id
       slug
       description
-      imageUrl
     }
   }
 }

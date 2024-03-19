@@ -5,7 +5,6 @@ query CollectionsGetList {
       id
       slug
       description
-      imageUrl
     }
   }
 }

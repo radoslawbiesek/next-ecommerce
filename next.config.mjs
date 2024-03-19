@@ -35,11 +35,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "fastly.picsum.photos",
-      },
-      {
-        protocol: "https",
-        hostname: "picsum.photos",
+        hostname: "static-ourstore.hyperfunctor.com",
       },
     ],
   },
