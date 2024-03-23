@@ -1,7 +1,6 @@
 import { type NextRequest } from "next/server";
 import { headers } from "next/headers";
-import { revalidateTag } from "next/cache";
-import { type ProductCreatedEvent } from "@/gql/graphql";
+import { revalidatePath } from "next/cache";
 
 export async function POST(request: NextRequest): Promise<Response> {
   const secret = headers().get("x-webhook-secret");
@@ -10,21 +9,15 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
 
   const body: unknown = await request.json();
-
   if (typeof body !== "object" || body === null) {
     return new Response("Bad Request", { status: 400 });
   }
 
-  const event = body as ProductCreatedEvent;
-  switch (event.topic) {
-    case "PRODUCT_CREATED": {
-      revalidateTag("products");
-      revalidateTag("categories");
-      revalidateTag("collections");
+  revalidatePath("products/[pageNumber]");
+  revalidatePath("product/[slug]");
+  revalidatePath("categories/[slug]/[pageNumber]");
+  revalidatePath("collections/[slug]/[pageNumber]");
+  revalidatePath("/");
 
-      return new Response(null, { status: 200 });
-    }
-  }
-
-  return new Response("Bad Request", { status: 400 });
+  return new Response(null, { status: 200 });
 }
