@@ -1,5 +1,3 @@
-import "server-only";
-
 import { Suspense } from "react";
 import { type Route } from "next";
 import NextLink from "next/link";
@@ -9,6 +7,7 @@ import { ActiveLink } from "@/ui/components/common/ActiveLink";
 import { Search } from "@/ui/components/common/Search";
 import * as categoriesService from "@/services/categories";
 import { CartLink } from "@/ui/components/cart/CartLink";
+import { TruckIcon } from "@/ui/elements/icons/TruckIcon";
 
 const BASE_LINKS = [
   { label: "Home", href: "/", exact: true },
@@ -52,7 +51,10 @@ export async function Navbar() {
         </Suspense>
         <CartLink />
         <SignedIn>
-          <UserButton afterSignOutUrl="/" userProfileMode="navigation" />
+          <NextLink href="/orders">
+            <TruckIcon className="h-7 w-7" />
+          </NextLink>
+          <UserButton afterSignOutUrl="/" userProfileUrl="/profile" />
         </SignedIn>
         <SignedOut>
           <SignInButton />

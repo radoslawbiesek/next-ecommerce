@@ -5,6 +5,10 @@ import { revalidateTag } from "next/cache";
 
 import * as cartService from "@/services/cart";
 
+export async function removeFromCookies() {
+  return cartService.removeFromCookies();
+}
+
 export async function addProduct(formData: FormData) {
   const productId = formData.get("productId") as string;
   const quantity = formData.get("quantity") as string;

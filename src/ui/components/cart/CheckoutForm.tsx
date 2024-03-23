@@ -1,9 +1,22 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useState, useEffect, type FormEvent } from "react";
 
-export function CheckoutForm() {
+import { Spinner } from "@/ui/elements/form/Spinner";
+import * as cartActions from "@/actions/cart";
+import * as ordersActions from "@/actions/orders";
+
+type CheckoutFormProps = {
+  userId: string;
+  orderId: number;
+};
+
+export function CheckoutForm({ userId, orderId }: CheckoutFormProps) {
   const stripe = useStripe();
   const elements = useElements();
+  const router = useRouter();
 
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -49,22 +62,28 @@ export function CheckoutForm() {
 
     setIsLoading(true);
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: "http://localhost:3000/cart/payment/success",
-      },
-    });
+    try {
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        redirect: "if_required",
+      });
 
-    console.log(error);
+      console.log(paymentIntent);
 
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message ?? "Something went wrong");
-    } else {
-      setMessage("An unexpected error occurred.");
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      await ordersActions.update(orderId, "payment_started", userId);
+      await cartActions.removeFromCookies();
+
+      router.push("/cart/payment/success");
+    } catch (err: unknown) {
+      console.log(err);
+      setMessage(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   if (!stripe || !elements) {
@@ -76,7 +95,7 @@ export function CheckoutForm() {
       <form id="payment-form" onSubmit={handleSubmit} className="card-body gap-4">
         <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
         <button disabled={isLoading || !stripe || !elements} id="submit" className="btn btn-primary w-full">
-          <span id="button-text">{isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}</span>
+          <span id="button-text">{isLoading ? <Spinner /> : "Pay now"}</span>
         </button>
         {message && <div id="payment-message">{message}</div>}
       </form>

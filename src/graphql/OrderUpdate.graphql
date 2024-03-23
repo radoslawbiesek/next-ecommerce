@@ -1,0 +1,7 @@
+mutation OrderUpdate($id: Int, $input: OrderUpdateInput) {
+  orderUpdate(id: $id, input: $input) {
+    status
+    id
+    userId
+  }
+}

@@ -2,6 +2,7 @@
 
 import { useFormStatus } from "react-dom";
 import clsx from "clsx";
+import { Spinner } from "@/ui/elements/form/Spinner";
 
 type SubmitButtonProps = { children: React.ReactNode; className?: string } & React.ComponentProps<"button">;
 
@@ -15,7 +16,7 @@ export function SubmitButton({ children, className, ...rest }: SubmitButtonProps
       disabled={status.pending}
       {...rest}
     >
-      {status.pending ? <span className="loading loading-spinner"></span> : null}
+      {status.pending ? <Spinner /> : null}
       {children}
     </button>
   );

@@ -6,7 +6,6 @@ import {
   CartGetByIdDocument,
   CartRemoveItemDocument,
   CartUpdateItemQuantityDocument,
-  OrderUpdateStatusDocument,
 } from "@/gql/graphql";
 
 export const CART_ID_COOKIE = "cartId";
@@ -18,6 +17,10 @@ export async function getFromCookies() {
   }
 
   return getById(parseInt(cartId));
+}
+
+export function removeFromCookies() {
+  cookies().delete(CART_ID_COOKIE);
 }
 
 export async function getById(id: number) {
@@ -44,7 +47,7 @@ export async function findOrCreate(cartId?: number, input?: { productId: number;
     query: CartFindOrCreateDocument,
     variables: {
       input,
-      ...(cartId ? { id: cartId } : {}),
+      id: cartId || null,
     },
   });
 
@@ -55,10 +58,4 @@ export async function removeItem(cartItemId: number) {
   const { cartRemoveItem } = await executeGraphQL({ query: CartRemoveItemDocument, variables: { cartItemId } });
 
   return cartRemoveItem;
-}
-
-export async function updateOrderStatus(id: number, status: string) {
-  const { orderUpdateStatus } = await executeGraphQL({ query: OrderUpdateStatusDocument, variables: { id, status } });
-
-  return orderUpdateStatus;
 }

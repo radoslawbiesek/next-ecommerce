@@ -30,8 +30,12 @@ const documents = {
     types.CollectionGetBySlugDocument,
   "query CollectionsGetList {\n  collections {\n    data {\n      name\n      id\n      slug\n      description\n    }\n  }\n}":
     types.CollectionsGetListDocument,
-  "mutation OrderUpdateStatus($id: Int, $status: String) {\n  orderUpdateStatus(id: $id, status: $status) {\n    status\n    id\n  }\n}":
-    types.OrderUpdateStatusDocument,
+  "query OrderGetById($id: Int!, $userId: String!) {\n  order(id: $id, userId: $userId) {\n    id\n    status\n    createdAt\n    items {\n      ...CartItem\n    }\n  }\n}":
+    types.OrderGetByIdDocument,
+  "mutation OrderUpdate($id: Int, $input: OrderUpdateInput) {\n  orderUpdate(id: $id, input: $input) {\n    status\n    id\n    userId\n  }\n}":
+    types.OrderUpdateDocument,
+  "query OrdersGetList($userId: String!) {\n  orders(userId: $userId) {\n    id\n    status\n    createdAt\n  }\n}":
+    types.OrdersGetListDocument,
   "query ProductGetBySlug($slug: String!) {\n  product(slug: $slug) {\n    ...ProductListItem\n    description\n    variants\n    inStock\n  }\n}":
     types.ProductGetBySlugDocument,
   "fragment ProductListItem on Product {\n  id\n  name\n  slug\n  price\n  rating\n  categories {\n    id\n    name\n    slug\n  }\n  images {\n    url\n    alt\n    width\n    height\n  }\n}":
@@ -112,8 +116,20 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "mutation OrderUpdateStatus($id: Int, $status: String) {\n  orderUpdateStatus(id: $id, status: $status) {\n    status\n    id\n  }\n}",
-): typeof import("./graphql").OrderUpdateStatusDocument;
+  source: "query OrderGetById($id: Int!, $userId: String!) {\n  order(id: $id, userId: $userId) {\n    id\n    status\n    createdAt\n    items {\n      ...CartItem\n    }\n  }\n}",
+): typeof import("./graphql").OrderGetByIdDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "mutation OrderUpdate($id: Int, $input: OrderUpdateInput) {\n  orderUpdate(id: $id, input: $input) {\n    status\n    id\n    userId\n  }\n}",
+): typeof import("./graphql").OrderUpdateDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "query OrdersGetList($userId: String!) {\n  orders(userId: $userId) {\n    id\n    status\n    createdAt\n  }\n}",
+): typeof import("./graphql").OrdersGetListDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

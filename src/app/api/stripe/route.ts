@@ -3,7 +3,7 @@
 import { type NextRequest } from "next/server";
 import Stripe from "stripe";
 
-import * as cartService from "@/services/cart";
+import * as ordersService from "@/services/orders";
 
 export async function POST(req: NextRequest): Promise<Response> {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -28,16 +28,15 @@ export async function POST(req: NextRequest): Promise<Response> {
   const event = stripe.webhooks.constructEvent(await req.text(), signature, webhookSecret) as Stripe.DiscriminatedEvent;
 
   switch (event.type) {
-    case "payment_intent.succeeded": {
-      const orderId = parseInt(event.data.object.metadata.orderId!);
-      await cartService.updateOrderStatus(orderId, "success");
-      break;
-    }
+    case "payment_intent.processing":
     case "payment_intent.canceled":
-    case "payment_intent.payment_failed": {
+    case "payment_intent.succeeded":
+    case "payment_intent.requires_action": {
       const orderId = parseInt(event.data.object.metadata.orderId!);
-      await cartService.updateOrderStatus(orderId, "fail");
-      break;
+      const userId = event.data.object.metadata.userId!;
+      const status = event.type.split(".")[1]!;
+
+      await ordersService.updateOrder(orderId, status, userId);
     }
   }
 

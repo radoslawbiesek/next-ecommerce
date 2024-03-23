@@ -6,7 +6,7 @@ import * as cartService from "@/services/cart";
 
 export async function CartLink() {
   const cart = await cartService.getFromCookies();
-  const count = cart ? cart.items.reduce((acc, item) => (acc += item.quantity), 0) : 0;
+  const count = cart ? cart.items.reduce((acc, item) => acc + item.quantity, 0) : 0;
 
   return (
     <NextLink className="indicator" href="/cart">

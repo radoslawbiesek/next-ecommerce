@@ -5,6 +5,7 @@ import { useFormStatus } from "react-dom";
 import { TrashIcon } from "@/ui/elements/icons/TrashIcon";
 
 import * as cartActions from "@/actions/cart";
+import { Spinner } from "@/ui/elements/form/Spinner";
 
 export function RemoveCartItemButtom({ cartItemId }: { cartItemId: number }) {
   const status = useFormStatus();
@@ -16,7 +17,7 @@ export function RemoveCartItemButtom({ cartItemId }: { cartItemId: number }) {
       }}
     >
       <button className="btn btn-circle btn-ghost" type="submit" disabled={status.pending}>
-        {status.pending ? <span className="loading loading-spinner"></span> : <TrashIcon />}
+        {status.pending ? <Spinner /> : <TrashIcon />}
       </button>
     </form>
   );

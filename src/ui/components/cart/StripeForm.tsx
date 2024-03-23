@@ -5,16 +5,23 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import { CheckoutForm } from "./CheckoutForm";
 
-if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-  throw new Error("Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY env variable");
-}
+type StripeFormProps = {
+  clientSecret: string;
+  orderId: number;
+  userId: string;
+};
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+export const StripeForm = ({ clientSecret, orderId, userId }: StripeFormProps) => {
+  if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+    throw new Error("Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY env variable");
+  }
 
-export const StripeForm = ({ clientSecret }: { clientSecret: string }) => {
   return (
-    <Elements options={{ appearance: { theme: "stripe" }, clientSecret }} stripe={stripePromise}>
-      <CheckoutForm />
+    <Elements
+      options={{ appearance: { theme: "stripe" }, clientSecret }}
+      stripe={loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)}
+    >
+      <CheckoutForm orderId={orderId} userId={userId} />
     </Elements>
   );
 };

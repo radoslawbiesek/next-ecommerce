@@ -1,5 +1,3 @@
-import clsx from "clsx";
-
 type CheckCircleIconProps = {
   className?: string;
 };
@@ -12,7 +10,7 @@ export function CheckCircleIcon({ className }: CheckCircleIconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={clsx("h-6 w-6", className)}
+      className={className}
     >
       <path
         strokeLinecap="round"

@@ -1,0 +1,10 @@
+query OrderGetById($id: Int!, $userId: String!) {
+  order(id: $id, userId: $userId) {
+    id
+    status
+    createdAt
+    items {
+      ...CartItem
+    }
+  }
+}

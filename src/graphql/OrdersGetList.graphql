@@ -1,0 +1,7 @@
+query OrdersGetList($userId: String!) {
+  orders(userId: $userId) {
+    id
+    status
+    createdAt
+  }
+}

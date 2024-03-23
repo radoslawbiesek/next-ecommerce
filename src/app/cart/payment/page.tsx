@@ -3,12 +3,18 @@ import { redirect } from "next/navigation";
 import Stripe from "stripe";
 import clsx from "clsx";
 
+import { currentUser } from "@clerk/nextjs";
 import * as cartService from "@/services/cart";
 import { calculateCartTotal } from "@/helpers/calculateCartTotal";
 import { StripeForm } from "@/ui/components/cart/StripeForm";
 import { CartListItemCompact } from "@/ui/components/cart/CartListItemCompact";
 
 export default async function PaymentPage() {
+  const user = await currentUser();
+  if (!user) {
+    redirect("/sign-in");
+  }
+
   const cart = await cartService.getFromCookies();
   if (!cart?.items.length) {
     redirect("/cart");
@@ -31,6 +37,11 @@ export default async function PaymentPage() {
     },
     metadata: {
       orderId: cart.id,
+      userId: user.id,
+      email:
+        user.emailAddresses.find((email) => email.id === user.primaryEmailAddressId)?.emailAddress ||
+        user.emailAddresses[0]?.emailAddress ||
+        null,
     },
   });
 
@@ -41,14 +52,14 @@ export default async function PaymentPage() {
   return (
     <section>
       <h1 className="text-3xl font-bold">Payment</h1>
-      <div className="flex items-start gap-8">
+      <div className="flex items-start justify-center gap-8">
         <ul className="overflow-y-auto px-4 py-6 sm:px-6">
           {cart.items.map((item, index) => (
             <CartListItemCompact key={item.id} {...item} className={clsx({ "border-t": index !== 0 })} />
           ))}
         </ul>
         <Suspense>
-          <StripeForm clientSecret={paymentIntent.client_secret} />
+          <StripeForm clientSecret={paymentIntent.client_secret} userId={user.id} orderId={cart.id} />
         </Suspense>
       </div>
     </section>

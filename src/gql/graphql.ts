@@ -104,7 +104,7 @@ export type Mutation = {
   cartFindOrCreate: Cart;
   cartRemoveItem: CartItem;
   cartUpdateItemQuantity: CartItem;
-  orderUpdateStatus?: Maybe<Order>;
+  orderUpdate?: Maybe<Order>;
   productCreate: Product;
 };
 
@@ -131,9 +131,9 @@ export type MutationCartUpdateItemQuantityArgs = {
   quantity: Scalars["Int"]["input"];
 };
 
-export type MutationOrderUpdateStatusArgs = {
+export type MutationOrderUpdateArgs = {
   id?: InputMaybe<Scalars["Int"]["input"]>;
-  status?: InputMaybe<Scalars["String"]["input"]>;
+  input?: InputMaybe<OrderUpdateInput>;
 };
 
 export type MutationProductCreateArgs = {
@@ -141,9 +141,23 @@ export type MutationProductCreateArgs = {
 };
 
 export type Order = {
+  createdAt?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["Int"]["output"];
   items: Array<CartItem>;
   status?: Maybe<Scalars["String"]["output"]>;
+  userId?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type OrderListItem = {
+  createdAt?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["Int"]["output"];
+  status?: Maybe<Scalars["String"]["output"]>;
+  userId?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type OrderUpdateInput = {
+  status: Scalars["String"]["input"];
+  userId: Scalars["String"]["input"];
 };
 
 export type Product = {
@@ -165,7 +179,6 @@ export type ProductCreatedEvent = {
 };
 
 export type ProductCreatedEventPayload = {
-  categories: Array<Scalars["Int"]["output"]>;
   productId: Scalars["Int"]["output"];
 };
 
@@ -191,6 +204,8 @@ export type Query = {
   category?: Maybe<Category>;
   collection?: Maybe<Collection>;
   collections?: Maybe<Collections>;
+  order?: Maybe<Order>;
+  orders: Array<OrderListItem>;
   product?: Maybe<Product>;
   products?: Maybe<Products>;
   recommended_products?: Maybe<Products>;
@@ -207,6 +222,15 @@ export type QueryCategoryArgs = {
 
 export type QueryCollectionArgs = {
   slug: Scalars["String"]["input"];
+};
+
+export type QueryOrderArgs = {
+  id: Scalars["Int"]["input"];
+  userId: Scalars["String"]["input"];
+};
+
+export type QueryOrdersArgs = {
+  userId: Scalars["String"]["input"];
 };
 
 export type QueryProductArgs = {
@@ -450,12 +474,49 @@ export type CollectionsGetListQuery = {
   collections?: { data: Array<{ name: string; id: number; slug: string; description?: string | null }> } | null;
 };
 
-export type OrderUpdateStatusMutationVariables = Exact<{
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  status?: InputMaybe<Scalars["String"]["input"]>;
+export type OrderGetByIdQueryVariables = Exact<{
+  id: Scalars["Int"]["input"];
+  userId: Scalars["String"]["input"];
 }>;
 
-export type OrderUpdateStatusMutation = { orderUpdateStatus?: { status?: string | null; id: number } | null };
+export type OrderGetByIdQuery = {
+  order?: {
+    id: number;
+    status?: string | null;
+    createdAt?: string | null;
+    items: Array<{
+      id: number;
+      productId: number;
+      price?: number | null;
+      variant: string;
+      quantity: number;
+      product: {
+        id: number;
+        name: string;
+        slug: string;
+        price: number;
+        rating?: number | null;
+        categories: Array<{ id: number; name: string; slug: string }>;
+        images: Array<{ url: string; alt?: string | null; width: number; height: number }>;
+      };
+    }>;
+  } | null;
+};
+
+export type OrderUpdateMutationVariables = Exact<{
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  input?: InputMaybe<OrderUpdateInput>;
+}>;
+
+export type OrderUpdateMutation = {
+  orderUpdate?: { status?: string | null; id: number; userId?: string | null } | null;
+};
+
+export type OrdersGetListQueryVariables = Exact<{
+  userId: Scalars["String"]["input"];
+}>;
+
+export type OrdersGetListQuery = { orders: Array<{ id: number; status?: string | null; createdAt?: string | null }> };
 
 export type ProductGetBySlugQueryVariables = Exact<{
   slug: Scalars["String"]["input"];
@@ -939,14 +1000,63 @@ export const CollectionsGetListDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CollectionsGetListQuery, CollectionsGetListQueryVariables>;
-export const OrderUpdateStatusDocument = new TypedDocumentString(`
-    mutation OrderUpdateStatus($id: Int, $status: String) {
-  orderUpdateStatus(id: $id, status: $status) {
-    status
+export const OrderGetByIdDocument = new TypedDocumentString(`
+    query OrderGetById($id: Int!, $userId: String!) {
+  order(id: $id, userId: $userId) {
     id
+    status
+    createdAt
+    items {
+      ...CartItem
+    }
   }
 }
-    `) as unknown as TypedDocumentString<OrderUpdateStatusMutation, OrderUpdateStatusMutationVariables>;
+    fragment CartItem on CartItem {
+  id
+  productId
+  price
+  variant
+  quantity
+  product {
+    ...ProductListItem
+  }
+}
+fragment ProductListItem on Product {
+  id
+  name
+  slug
+  price
+  rating
+  categories {
+    id
+    name
+    slug
+  }
+  images {
+    url
+    alt
+    width
+    height
+  }
+}`) as unknown as TypedDocumentString<OrderGetByIdQuery, OrderGetByIdQueryVariables>;
+export const OrderUpdateDocument = new TypedDocumentString(`
+    mutation OrderUpdate($id: Int, $input: OrderUpdateInput) {
+  orderUpdate(id: $id, input: $input) {
+    status
+    id
+    userId
+  }
+}
+    `) as unknown as TypedDocumentString<OrderUpdateMutation, OrderUpdateMutationVariables>;
+export const OrdersGetListDocument = new TypedDocumentString(`
+    query OrdersGetList($userId: String!) {
+  orders(userId: $userId) {
+    id
+    status
+    createdAt
+  }
+}
+    `) as unknown as TypedDocumentString<OrdersGetListQuery, OrdersGetListQueryVariables>;
 export const ProductGetBySlugDocument = new TypedDocumentString(`
     query ProductGetBySlug($slug: String!) {
   product(slug: $slug) {
