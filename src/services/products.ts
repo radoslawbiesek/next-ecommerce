@@ -28,6 +28,7 @@ export async function getRecommendedProducts(productId: number, { take }: { take
       take,
       productId,
     },
+    next: { tags: [`recommended-products?productId=${productId}&take=${take}`] },
   });
 
   return response.recommended_products?.data ?? [];

@@ -173,17 +173,6 @@ export type Product = {
   variants: Array<Scalars["String"]["output"]>;
 };
 
-export type ProductCreatedEvent = {
-  payload?: Maybe<ProductCreatedEventPayload>;
-  topic: ProductCreatedEventType;
-};
-
-export type ProductCreatedEventPayload = {
-  productId: Scalars["Int"]["output"];
-};
-
-export type ProductCreatedEventType = "PRODUCT_CREATED";
-
 export type ProductInput = {
   categories: Array<Scalars["Int"]["input"]>;
   description: Scalars["String"]["input"];
