@@ -15,7 +15,7 @@ export async function getAll({
   const response = await executeGraphQL({
     query: ProductsGetListDocument,
     variables: { take, skip, search, ordering },
-    next: { tags: ["products"] },
+    cache: "no-store",
   });
 
   return { data: response.products?.data ?? [], total: response.products?.meta?.total ?? 0 };
