@@ -5,7 +5,7 @@ export default async function HomePage() {
   return (
     <>
       <CollectionsList />
-      <TopProducts />
+      <TopProducts className="my-10" />
     </>
   );
 }

@@ -51,13 +51,17 @@ export default async function PaymentPage() {
 
   return (
     <section>
-      <h1 className="text-3xl font-bold">Payment</h1>
-      <div className="flex items-start justify-center gap-8">
-        <ul className="overflow-y-auto px-4 py-6 sm:px-6">
-          {cart.items.map((item, index) => (
-            <CartListItemCompact key={item.id} {...item} className={clsx({ "border-t": index !== 0 })} />
-          ))}
-        </ul>
+      <div className="flex items-start justify-center gap-8 py-8">
+        <div className="card bg-base-100">
+          <div className="card-body">
+            <h1 className="card-title text-3xl">Payment</h1>
+            <ul className="flex flex-1 flex-col gap-2 bg-base-100">
+              {cart.items.map((item, index) => (
+                <CartListItemCompact key={item.id} {...item} className={clsx({ "border-t": index !== 0 })} />
+              ))}
+            </ul>
+          </div>
+        </div>
         <Suspense>
           <StripeForm clientSecret={paymentIntent.client_secret} userId={user.id} orderId={cart.id} />
         </Suspense>

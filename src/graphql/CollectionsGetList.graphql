@@ -5,6 +5,16 @@ query CollectionsGetList {
       id
       slug
       description
+      products {
+        data {
+          images {
+            url
+            width
+            height
+            alt
+          }
+        }
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 import { executeGraphQL } from "./graphql";
 import { OrderUpdateDocument, OrdersGetListDocument, OrderGetByIdDocument } from "@/gql/graphql";
 
-export async function updateOrder(id: number, status: string, userId: string) {
+export async function update(id: number, status: string, userId: string) {
   const { orderUpdate } = await executeGraphQL({
     query: OrderUpdateDocument,
     variables: { id, input: { status, userId } },
@@ -10,7 +10,7 @@ export async function updateOrder(id: number, status: string, userId: string) {
   return orderUpdate;
 }
 
-export async function getAllOrders(userId: string) {
+export async function getAll(userId: string) {
   const { orders } = await executeGraphQL({
     query: OrdersGetListDocument,
     variables: { userId },
@@ -19,7 +19,7 @@ export async function getAllOrders(userId: string) {
   return orders;
 }
 
-export async function getOrderById(id: number, userId: string) {
+export async function getById(id: number, userId: string) {
   const { order } = await executeGraphQL({
     query: OrderGetByIdDocument,
     variables: { id, userId },

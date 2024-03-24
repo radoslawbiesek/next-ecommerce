@@ -26,19 +26,25 @@ export default async function ProductsPage({
   });
 
   return (
-    <section className="flex h-full flex-col gap-8">
-      <div className="flex items-end justify-between">
-        <h1 className="text-3xl font-bold">All products</h1>
-        <OrderingSelect />
+    <section className="flex flex-grow flex-col">
+      <div className="fullwidth-container flex items-end justify-between bg-base-100 py-6">
+        <div className="container mx-auto flex justify-between">
+          <h1 className="text-3xl font-bold">All products</h1>
+          <OrderingSelect />
+        </div>
       </div>
-      <ProductList products={data} />
-      <div className="flex justify-center">
-        <Pagination
-          total={total}
-          currentPage={page}
-          perPage={PRODUCTS_PER_PAGE}
-          generateHref={(page: number) => `/products/${page}?${new URLSearchParams(searchParams).toString()}` as Route}
-        />
+      <div className="flex flex-grow flex-col items-center justify-center gap-8 py-10">
+        <ProductList products={data} />
+        <div className="flex justify-center">
+          <Pagination
+            total={total}
+            currentPage={page}
+            perPage={PRODUCTS_PER_PAGE}
+            generateHref={(page: number) =>
+              `/products/${page}?${new URLSearchParams(searchParams).toString()}` as Route
+            }
+          />
+        </div>
       </div>
     </section>
   );

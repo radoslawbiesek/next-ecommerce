@@ -49,7 +49,7 @@ export function Pagination({ total, perPage, currentPage, generateHref }: Pagina
   return (
     <nav className="join" aria-label="Pagination">
       {pages.map((page, index, pages) => {
-        const baseClassName = pages.length > 1 ? "btn join-item" : "btn";
+        const baseClassName = clsx("btn btn-outline", { "join-item": pages.length > 1 });
         const isLink = typeof page === "number";
 
         if (!isLink) {

@@ -43,21 +43,25 @@ export default async function CategoriesPage({ params, searchParams }: Categorie
   }
 
   return (
-    <section className="h-full">
-      <div className="flex items-end justify-between">
-        <h1 className="text-3xl font-bold">{result.name}</h1>
-        <OrderingSelect />
+    <section className="flex flex-grow flex-col">
+      <div className="fullwidth-container flex items-end justify-between bg-base-100 py-6">
+        <div className="container mx-auto flex justify-between">
+          <h1 className="text-3xl font-bold">{result.name}</h1>
+          <OrderingSelect />
+        </div>
       </div>
-      <ProductList className="mt-8" products={result.products.data} />
-      <div className="mt-8 flex justify-center">
-        <Pagination
-          total={result.products.meta.total}
-          currentPage={page}
-          perPage={PRODUCTS_PER_PAGE}
-          generateHref={(page: number) =>
-            `/categories/${params.slug}/${page}?${new URLSearchParams(searchParams).toString()}` as Route
-          }
-        />
+      <div className="flex flex-grow flex-col items-center justify-center gap-8 py-10">
+        <ProductList products={result.products.data} />
+        <div className="flex justify-center">
+          <Pagination
+            total={result.products.meta.total}
+            currentPage={page}
+            perPage={PRODUCTS_PER_PAGE}
+            generateHref={(page: number) =>
+              `/categories/${params.slug}/${page}?${new URLSearchParams(searchParams).toString()}` as Route
+            }
+          />
+        </div>
       </div>
     </section>
   );

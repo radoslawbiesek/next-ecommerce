@@ -12,7 +12,7 @@ export function SubmitButton({ children, className, ...rest }: SubmitButtonProps
   return (
     <button
       type="submit"
-      className={clsx("btn btn-neutral mt-2 w-full max-w-xs disabled:cursor-wait", className)}
+      className={clsx("btn btn-primary mt-2 w-full max-w-xs disabled:cursor-wait", className)}
       disabled={status.pending}
       {...rest}
     >

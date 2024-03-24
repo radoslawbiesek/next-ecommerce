@@ -36,7 +36,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       const userId = event.data.object.metadata.userId!;
       const status = event.type.split(".")[1]!;
 
-      await ordersService.updateOrder(orderId, status, userId);
+      await ordersService.update(orderId, status, userId);
     }
   }
 

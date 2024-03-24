@@ -91,7 +91,7 @@ export function CheckoutForm({ userId, orderId }: CheckoutFormProps) {
   }
 
   return (
-    <div className="stripe card bg-base-200 p-4">
+    <div className="stripe card bg-base-100 p-4">
       <form id="payment-form" onSubmit={handleSubmit} className="card-body gap-4">
         <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
         <button disabled={isLoading || !stripe || !elements} id="submit" className="btn btn-primary w-full">

@@ -13,8 +13,8 @@ type RecommendedProductsProps = {
 export async function RecommendedProducts({ productId, className }: RecommendedProductsProps) {
   const recommendedProducts = await productsService.getRecommendedProducts(productId, { take: PRODUCTS_PER_PAGE });
   return (
-    <div>
-      <h3 className="mb-4 mt-10 text-center text-2xl font-bold">You may also like</h3>
+    <div className="flex flex-col gap-6">
+      <h3 className="text-center text-2xl font-bold">You may also like</h3>
       <ul
         data-testid="related-products"
         className={clsx("flex h-full flex-wrap items-center justify-center gap-8", className)}

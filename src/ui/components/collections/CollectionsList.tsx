@@ -1,24 +1,25 @@
-import Link from "next/link";
-import { type Route } from "next";
-
 import * as collectionsService from "@/services/collections";
+import { CollectionListItem } from "@/ui/components/collections/CollectionListItem";
 
 export async function CollectionsList() {
   const collections = await collectionsService.getAll();
 
   return (
-    <ul className="flex justify-center gap-4 p-4">
-      {collections?.map((collection) => (
-        <li key={collection.slug}>
-          <Link href={`/collections/${collection.slug}` as Route}>
-            <div className="card card-compact bg-base-200">
-              <div className="card-body items-center">
-                <h3 className="card-title">{collection.name}</h3>
-              </div>
-            </div>
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <section className="fullwidth-container flex flex-col gap-3 bg-neutral py-10">
+      <div className="carousel w-full">
+        {collections?.map((collection) => (
+          <div id={collection.slug} key={collection.slug} className="carousel-item flex w-full justify-center">
+            <CollectionListItem key={collection.slug} slug={collection.slug} />
+          </div>
+        ))}
+      </div>
+      <div className="flex w-full justify-center gap-2">
+        {collections?.map((collection, index) => (
+          <a key={collection.slug} href={`#${collection.slug}`} className="btn-neutral-content btn btn-xs">
+            {index + 1}
+          </a>
+        ))}
+      </div>
+    </section>
   );
 }

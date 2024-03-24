@@ -13,19 +13,23 @@ export default async function CartPage() {
   const total = calculateCartTotal(cart);
 
   return (
-    <>
-      <h1 className="text-3xl font-bold">Your shopping cart</h1>
-      <div className="flex items-start gap-8">
-        <ul className="mt-8 flex flex-1 flex-col gap-2">
-          {cart.items.map((item, index) => (
-            <>
-              {index !== 0 && <div className="divider" />}
-              <CartListItem key={item.id} {...item} />
-            </>
-          ))}
-        </ul>
+    <section>
+      <div className="flex items-start justify-center gap-8 py-8">
+        <div className="card bg-base-100">
+          <div className="card-body">
+            <h1 className="card-title text-3xl">Your shopping cart</h1>
+            <ul className="flex flex-1 flex-col gap-2 bg-base-100">
+              {cart.items.map((item, index) => (
+                <>
+                  {index !== 0 && <div className="divider" />}
+                  <CartListItem key={item.id} {...item} />
+                </>
+              ))}
+            </ul>
+          </div>
+        </div>
 
-        <div className="card w-full max-w-96 bg-base-200 lg:card-side">
+        <div className="card w-full max-w-96 bg-base-100 lg:card-side">
           <div className="card-body">
             <h2 className="card-title">Summary</h2>
             <div className="flex flex-row justify-between">
@@ -50,6 +54,6 @@ export default async function CartPage() {
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 }

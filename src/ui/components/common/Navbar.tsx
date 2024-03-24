@@ -8,6 +8,7 @@ import { Search } from "@/ui/components/common/Search";
 import * as categoriesService from "@/services/categories";
 import { CartLink } from "@/ui/components/cart/CartLink";
 import { TruckIcon } from "@/ui/elements/icons/TruckIcon";
+import { StorefrontIcon } from "@/ui/elements/icons/StorefrontIcon";
 
 const BASE_LINKS = [
   { label: "Home", href: "/", exact: true },
@@ -25,40 +26,45 @@ export async function Navbar() {
   ] as const;
 
   return (
-    <div className="navbar bg-base-200 px-8 py-0">
-      <nav className="navbar-start gap-2">
-        <NextLink href="/" className="text-xl">
-          Shop
-        </NextLink>
-        <ul className="menu menu-horizontal px-4 py-0">
-          {allLinks.map((link) => (
-            <li key={link.href}>
-              <ActiveLink
-                href={link.href}
-                className="rounded-none"
-                activeClassName="border-b-2 border-slate-500"
-                exact={link.exact}
-              >
-                {link.label}
-              </ActiveLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <div className="navbar-end gap-6">
-        <Suspense>
-          <Search />
-        </Suspense>
-        <CartLink />
-        <SignedIn>
-          <NextLink href="/orders">
-            <TruckIcon className="h-7 w-7" />
+    <div className="border-b-base-900 border-b bg-base-100 px-8 py-2">
+      <div className="container navbar mx-auto">
+        <div className="navbar-start">
+          <NextLink href="/" className="flex items-center gap-2 text-xl">
+            <StorefrontIcon className="h-7 w-7" />
+            <span className="text-xl font-semibold">Next Ecommerce</span>
           </NextLink>
-          <UserButton afterSignOutUrl="/" userProfileUrl="/profile" />
-        </SignedIn>
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
+        </div>
+        <nav className="navbar-center gap-2">
+          <ul className="menu menu-horizontal px-4 py-0">
+            {allLinks.map((link) => (
+              <li key={link.href}>
+                <ActiveLink
+                  href={link.href}
+                  className="h-full rounded-none"
+                  activeClassName="border-b-2 border-primary"
+                  exact={link.exact}
+                >
+                  {link.label}
+                </ActiveLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="navbar-end gap-6">
+          <Suspense>
+            <Search />
+          </Suspense>
+          <CartLink />
+          <SignedIn>
+            <NextLink href="/orders">
+              <TruckIcon className="h-7 w-7" />
+            </NextLink>
+            <UserButton afterSignOutUrl="/" userProfileUrl="/profile" />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+        </div>
       </div>
     </div>
   );

@@ -14,14 +14,11 @@ export async function TopProducts({ className }: TopProductsProps) {
   const { data: topProducts } = await productsService.getAll({ take: PRODUCTS_PER_PAGE, ordering: "-rating" });
 
   return (
-    <div>
-      <h3 className="mb-4 mt-10 text-center text-2xl font-bold">Our top products</h3>
-      <ul
-        data-testid="products-list"
-        className={clsx("flex h-full flex-wrap items-center justify-center gap-8", className)}
-      >
+    <div className={clsx("flex flex-col gap-4", className)}>
+      <h3 className="text-center text-2xl font-bold">Top products</h3>
+      <ul data-testid="products-list" className="flex h-full flex-wrap items-center justify-center gap-8">
         {topProducts.map((product) => (
-          <ProductListItem key={product.id} {...product} className="w-60" />
+          <ProductListItem key={product.id} {...product} />
         ))}
       </ul>
     </div>

@@ -36,9 +36,9 @@ export default async function Product({ params }: ProductPageProps) {
   }
 
   return (
-    <>
-      <section className="h-full">
-        <article className="flex gap-8">
+    <div className="flex flex-col gap-10">
+      <section className="fullwidth-container h-full bg-base-100">
+        <article className="container mx-auto flex gap-8 p-10">
           <div>
             {product.images[0] && (
               <NextImage
@@ -53,7 +53,7 @@ export default async function Product({ params }: ProductPageProps) {
           <div>
             <h1 className="text-3xl font-bold">{product.name}</h1>
             <p className="mt-4 text-xl">{formatPrice(product.price / 100)}</p>
-            <p className="mt-4 italic text-slate-700">{product.description}</p>
+            <p className="mt-4 max-w-2xl italic text-slate-700">{product.description}</p>
             {product.inStock > 0 && (
               <div className="badge badge-md mt-4">
                 <CheckIcon className="h-3 w-3" />
@@ -93,13 +93,19 @@ export default async function Product({ params }: ProductPageProps) {
             </form>
           </div>
         </article>
+      </section>
+      <section>
         <Suspense>
           <RecommendedProducts productId={product.id} />
         </Suspense>
-        <Suspense>
-          <ReviewsWrapper product={product} className="mb-8 mt-24" />
-        </Suspense>
       </section>
-    </>
+      <section className="fullwidth-container h-full bg-base-100">
+        <div className="container mx-auto p-10">
+          <Suspense>
+            <ReviewsWrapper product={product} />
+          </Suspense>
+        </div>
+      </section>
+    </div>
   );
 }
