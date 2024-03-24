@@ -1,7 +1,7 @@
 "use client";
 
 import { type Route } from "next";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { GlassIcon } from "@/ui/elements/icons/GlassIcon";
 
@@ -20,18 +20,11 @@ function debounce<F extends (...args: any[]) => void>(func: F, delay: number): (
 export function Search() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const pathname = usePathname();
 
   const handleSearch = debounce((search: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("query", encodeURIComponent(search));
-    const path = `/search?${params.toString()}` satisfies Route;
+    const path = `/search?query=${encodeURIComponent(search.trim())}` satisfies Route;
 
-    if (pathname === "/search") {
-      router.replace(path);
-    } else {
-      router.push(path);
-    }
+    router.push(path);
   }, 500);
 
   return (
