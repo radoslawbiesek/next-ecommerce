@@ -1,3 +1,5 @@
+"use client";
+
 import { type ReviewFragment } from "@/gql/graphql";
 import { Rating } from "@/ui/components/reviews/Rating";
 

@@ -7,5 +7,5 @@ import { type ReviewInput } from "@/gql/graphql";
 
 export async function addReview(data: ReviewInput) {
   await reviewsService.create(data);
-  revalidateTag(`$reviews/${data.productId}`);
+  revalidateTag(`reviews/${data.productId}`);
 }

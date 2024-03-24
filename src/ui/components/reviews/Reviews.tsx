@@ -5,10 +5,12 @@ import { useOptimistic } from "react";
 import clsx from "clsx";
 
 import { Rating } from "@/ui/components/reviews/Rating";
-import { ReviewForm } from "@/ui/components/reviews/ReviewForm";
 import { ReviewsList } from "@/ui/components/reviews/ReviewsList";
 import { type ReviewFragment, type ProductListItemFragment, type ReviewInput } from "@/gql/graphql";
 import * as reviewsActions from "@/actions/reviews";
+import { Input } from "@/ui/elements/form/Input";
+import { Textarea } from "@/ui/elements/form/Textarea";
+import { RatingInput } from "@/ui/elements/form/RatingInput";
 
 type ReviewsProps = {
   reviews: ReviewFragment[];
@@ -83,7 +85,21 @@ export function Reviews({ reviews, product, className }: ReviewsProps) {
         </div>
         <h3 className="mt-4 text-xl font-semibold">Share your thoughts</h3>
         <p className="text-sm">If you’ve used this product, share your thoughts with other customers</p>
-        <ReviewForm productId={product.id} action={handleReviewSubmit} />
+        <form
+          className={clsx("flex flex-col gap-3", className)}
+          action={handleReviewSubmit}
+          data-testid="add-review-form"
+        >
+          <input type="hidden" name="productId" value={product.id} required />
+          <Input label="Review title" name="headline" required />
+          <Textarea label="Review content" name="content" required />
+          <RatingInput label="Rating" />
+          <Input label="Name" name="name" required />
+          <Input label="Email" name="email" type="email" required />
+          <button type="submit" className="btn btn-primary mt-4 w-full">
+            Submit review
+          </button>
+        </form>
       </div>
       {reviews.length > 0 ? (
         <ReviewsList reviews={optimisticReviews} />
